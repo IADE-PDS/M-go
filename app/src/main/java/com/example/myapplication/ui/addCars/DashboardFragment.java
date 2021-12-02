@@ -34,6 +34,7 @@ import android.util.Log;
 
 public class DashboardFragment extends Fragment {
 
+
     private FragmentDashboardBinding binding;
     private RequestQueue queue;
     private String[] transmissao = {"Automatica", "Manual"};
