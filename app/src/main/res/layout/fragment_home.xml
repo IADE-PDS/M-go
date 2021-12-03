@@ -6,34 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".ui.cars.HomeFragment">
 
+    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        android:id="@+id/buttonGroup_roundSelectedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        app:position="0"
+        app:radius="30dp"
+        app:rippleColor="@color/black"
+        app:selectedBackground="@color/blue_500"
+        app:selectedBorderColor="#555555"
+        app:selectedBorderWidth="2dp"
+        app:selectedButtonRadius="30dp"
+        app:selectionAnimationDuration="1000"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="160dp">
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:padding="8dp"
+            app:selectedTextColor="@color/white"
+            app:text="Yes"
+            app:textColor="@color/black"
+            app:textSize="24sp" />
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:padding="8dp"
+            app:selectedTextColor="@color/white"
+            app:text="Maybe"
+            app:textColor="@color/black"
+            app:textSize="24sp" />
+
+        <com.addisonelliott.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:padding="8dp"
+            app:selectedTextColor="#FFFFFF"
+            app:text="No"
+            app:textColor="@color/black"
+            app:textSize="24sp" />
+
+    </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
     <Button
         android:id="@+id/btn_gps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:onClick="onClick"
         android:text="@string/btn_gps"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/text_home"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintVertical_bias="0.882" />
 
     <Button
         android:id="@+id/btn_searchRepairs"
@@ -43,8 +79,8 @@
         android:text="@string/search_repairs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.626"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396" />
+        app:layout_constraintVertical_bias="0.882" />
 </androidx.constraintlayout.widget.ConstraintLayout>
