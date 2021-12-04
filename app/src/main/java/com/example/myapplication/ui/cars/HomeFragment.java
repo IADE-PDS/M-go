@@ -2,6 +2,7 @@ package com.example.myapplication.ui.cars;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -28,8 +29,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.JSONArrayDownloader;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.MapsActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
+import com.example.myapplication.login.LoginActivity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +87,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Log.i("CENAS", "CENAS");
                 getLocation();
+                Intent intent=new Intent(getContext(), MapsActivity.class);
+                startActivity(intent);
             }
         });
 
