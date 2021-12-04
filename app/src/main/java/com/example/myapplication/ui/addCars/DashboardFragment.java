@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.JSONArrayDownloader;
+import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.PostPersons;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
 
@@ -49,8 +49,7 @@ public class DashboardFragment extends Fragment {
     ArrayList<String> modelsName;
     ArrayList<String> engineId;
     ArrayList<String> engineName;
-    ArrayList<String> fuellist;
-    ArrayList<String> engine;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

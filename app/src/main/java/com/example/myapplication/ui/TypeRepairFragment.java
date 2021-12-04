@@ -11,8 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.myapplication.JSONArrayDownloader;
-import com.example.myapplication.R;
+import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.databinding.FragmentTypeRepairBinding;
 
 import org.json.JSONArray;

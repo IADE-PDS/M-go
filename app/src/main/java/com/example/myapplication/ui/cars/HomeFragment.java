@@ -17,17 +17,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.myapplication.JSONArrayDownloader;
+import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import java.io.IOException;
@@ -35,8 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
-
-import androidx.navigation.Navigation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,11 +42,14 @@ public class HomeFragment extends Fragment {
     Button btnGps,btnRepairs;
     ListView repairs;
     Spinner car;
+    int clientid=2;
 
     LocationManager locationManager;
     LocationListener locationListener;
     ArrayList<String> typeRepairId;
     ArrayList<String> typeRepairNames;
+    ArrayList<String> modelsName;
+    ArrayList<String> brandNames;
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -85,16 +84,54 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         JSONArrayDownloader task = new JSONArrayDownloader();
         JSONArray objTypeRepair;
+        JSONArray objCar = null;
+
+        //Gets the cars of a client
+        JSONObject batata;
+
         try {
-            objTypeRepair = task.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepair").get();
+            objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+clientid).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            objCar = null;
+        }
+
+        Log.e("carrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", ""+objCar);
+
+
+
+        modelsName = new ArrayList<>();
+        brandNames = new ArrayList<>();
+        if(objCar != null) {
+            for(int i = 0; i < objCar.length(); i++) {
+                try {
+
+                    batata = objCar.getJSONObject(i).getJSONObject("carModel").getJSONObject("modelEngineModel");
+                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+batata.getString("modelName"));
+                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+batata.getJSONObject("modelBrand").getString("brandName"));
+                    modelsName.add(batata.getString("modelName"));
+                    brandNames.add(batata.getJSONObject("modelBrand").getString("brandName"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("dasdkfjchasdjfjsdljhvsdn fjhvdknv jkfsdjasc jksfdvdnc", "vbljnwdsvjhwdb jkwebduyhf gwejdhb ferjkgfjkdwbvjywebfmchnbwerjhfgbwejcbjkwerhg");
+                }
+
+            }
+        }
+
+        JSONArrayDownloader task1 = new JSONArrayDownloader();
+        JSONObject obj;
+
+        try {
+            objTypeRepair = task1.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepair").get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             objTypeRepair = null;
         }
 
-        JSONObject obj;
         typeRepairId = new ArrayList<>();
         typeRepairNames = new ArrayList<>();
         if(objTypeRepair != null) {
@@ -112,6 +149,8 @@ public class HomeFragment extends Fragment {
 
         initializeMyLListView();
 
+        Log.e("1",""+modelsName);
+        Log.e("1",""+brandNames);
         return root;
     }
 
