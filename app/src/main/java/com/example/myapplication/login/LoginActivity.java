@@ -83,7 +83,11 @@ public class LoginActivity extends AppCompatActivity {
                 //Complete and destroy login activity once successful
                 //finish();
                 Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                if(usernameEditText.getText().toString().equals("user")){
+                startActivity(intent);}
+                if(usernameEditText.getText().toString().equals("mechanic")){
+
+                }
             }
         });
 
