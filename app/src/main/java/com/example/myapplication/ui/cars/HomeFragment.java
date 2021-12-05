@@ -91,7 +91,6 @@ public class HomeFragment extends Fragment {
 
                 intent.putExtra("Latitude", Double.toString(latitude));
                 intent.putExtra("Longitude", Double.toString(longitude));
-
                 startActivity(intent);
             }
         });
