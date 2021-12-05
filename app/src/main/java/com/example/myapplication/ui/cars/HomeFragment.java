@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -60,6 +61,9 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     public double latitude,longitude;
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel =
@@ -178,8 +182,10 @@ public class HomeFragment extends Fragment {
         Log.i("1",typeRepairNames.toString());
 
         initializeMyLListView();
-        Log.e("1",""+modelsName);
-        Log.e("1",""+brandNames);
+
+
+
+
 
         return root;
     }
@@ -287,6 +293,20 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == btnRepairs.getId()){
+            String itemSelected = "Select items: \n";
+            for(int i=0;i<repairs.getCount();i++){
+                if(repairs.isItemChecked(i)){
+                    itemSelected += repairs.getItemAtPosition(i) +"\n";
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
