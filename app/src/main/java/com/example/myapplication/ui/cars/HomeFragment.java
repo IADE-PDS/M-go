@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -46,7 +47,6 @@ public class HomeFragment extends Fragment {
     Button btnGps,btnRepairs;
     ListView repairs;
     Spinner car;
-
 
     LocationManager locationManager;
     LocationListener locationListener;
@@ -92,6 +92,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+
         JSONArrayDownloader task = new JSONArrayDownloader();
         JSONArray objTypeRepair;
         try {
@@ -119,12 +121,27 @@ public class HomeFragment extends Fragment {
 
         initializeMyLListView();
 
+        createListViewClickItemEvent(repairs);
+
         return root;
+    }
+
+    private void createListViewClickItemEvent(ListView list)
+    {
+        // 5 - Criamos um EventListener para lidar com o clique nos items da lista.
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_navigation_home_to_navigation_date_picker2);
+            }
+        });
     }
 
     private void initializeMyLListView(){
         ArrayAdapter<String> myListAdapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,typeRepairNames);
         repairs.setAdapter(myListAdapter);
+
     }
 
 

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_TypeRepairListView"
             app:destination="@id/TypeRepairListView" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_date_picker2"
+            app:destination="@id/navigation_date_picker" />
     </fragment>
 
     <fragment
@@ -28,10 +31,10 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.myapplication.ui.profile.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_date_picker"
+        android:name="com.example.myapplication.ui.DatePickerFragment"
+        android:label="Pick date"
+        tools:layout="@layout/fragment_date_picker" />
 
     <fragment
         android:id="@+id/TypeRepairListView"
