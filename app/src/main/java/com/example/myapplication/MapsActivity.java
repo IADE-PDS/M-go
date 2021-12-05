@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,6 +12,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.myapplication.databinding.ActivityMapsBinding;
+
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -44,8 +47,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng place = new LatLng(-34, 151);
+
+        LatLng place = new LatLng(11, 151);
         mMap.addMarker(new MarkerOptions().position(place).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(place));
     }
+
+
 }

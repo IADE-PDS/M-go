@@ -2,6 +2,7 @@ package com.example.myapplication.ui.cars;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -17,30 +18,29 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.myapplication.JSONArrayDownloader;
+import com.example.myapplication.Downloaders.JSONArrayDownloader;
+//import com.example.myapplication.JSONArrayDownloader;
+import com.example.myapplication.MapsActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
-
-import androidx.navigation.Navigation;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class HomeFragment extends Fragment {
     Button btnGps,btnRepairs;
@@ -82,6 +82,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Log.i("CENAS", "CENAS");
                 getLocation();
+                Intent intent=new Intent(getContext(), MapsActivity.class);
+                startActivity(intent);
             }
         });
 
