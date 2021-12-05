@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment {
     Spinner car;
     int clientid=2;
 
+
     LocationManager locationManager;
     LocationListener locationListener;
     ArrayList<String> typeRepairId;
