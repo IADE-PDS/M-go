@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeMyLListView(){
-        ArrayAdapter<String> myListAdapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,typeRepairNames);
+        ArrayAdapter<String> myListAdapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_multiple_choice,typeRepairNames);
         repairs.setAdapter(myListAdapter);
     }
 
