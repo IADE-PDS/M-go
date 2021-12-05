@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     Button btnGps,btnRepairs;
     ListView repairs;
     Spinner car;
-    int clientid=2;
+    int clientid=1;
 
 
     LocationManager locationManager;
@@ -124,11 +124,21 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        Log.e("plzzzzz printeadsdsadsadsadsa", "");
-        for (int i=0;i<modelsName.size();i++){
-            clientcars.add(brandNames.get(i)+" "+modelsName.get(i));
-            Log.e("plzzzzz printeadsdsadsadsadsa", ""+clientcars.get(i));
+        Log.e("Size22222222222222222222222222222222222", ""+brandNames.size());
+
+        clientcars = new ArrayList<>();
+
+        if (brandNames.size()>1){
+            for (int i=0;i<modelsName.size();i++){
+                clientcars.add(brandNames.get(i)+" "+modelsName.get(i));
+                Log.e("plzzzzz printeadsdsadsadsadsa", ""+clientcars.get(i));
+            }
         }
+        else {
+            clientcars.add(brandNames.get(0)+" "+modelsName.get(0));
+        }
+
+
 
         JSONArrayDownloader task1 = new JSONArrayDownloader();
         JSONObject obj;
