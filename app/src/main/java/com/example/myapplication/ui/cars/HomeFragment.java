@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
     ArrayList<String> typeRepairNames;
     ArrayList<String> modelsName;
     ArrayList<String> brandNames;
+    ArrayList<String> clientcars;
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -90,7 +91,7 @@ public class HomeFragment extends Fragment {
         JSONArray objCar = null;
 
         //Gets the cars of a client
-        JSONObject batata;
+        JSONObject clientcar;
 
         try {
             objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+clientid).get();
@@ -109,11 +110,11 @@ public class HomeFragment extends Fragment {
             for(int i = 0; i < objCar.length(); i++) {
                 try {
 
-                    batata = objCar.getJSONObject(i).getJSONObject("carModel").getJSONObject("modelEngineModel");
-                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+batata.getString("modelName"));
-                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+batata.getJSONObject("modelBrand").getString("brandName"));
-                    modelsName.add(batata.getString("modelName"));
-                    brandNames.add(batata.getJSONObject("modelBrand").getString("brandName"));
+                    clientcar = objCar.getJSONObject(i).getJSONObject("carModel").getJSONObject("modelEngineModel");
+                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+clientcar.getString("modelName"));
+                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+clientcar.getJSONObject("modelBrand").getString("brandName"));
+                    modelsName.add(clientcar.getString("modelName"));
+                    brandNames.add(clientcar.getJSONObject("modelBrand").getString("brandName"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("dasdkfjchasdjfjsdljhvsdn fjhvdknv jkfsdjasc jksfdvdnc", "vbljnwdsvjhwdb jkwebduyhf gwejdhb ferjkgfjkdwbvjywebfmchnbwerjhfgbwejcbjkwerhg");
@@ -122,8 +123,19 @@ public class HomeFragment extends Fragment {
             }
         }
 
+        Log.e("plzzzzz printeadsdsadsadsadsa", "");
+        for (int i=0;i<modelsName.size();i++){
+            clientcars.add(brandNames.get(i)+" "+modelsName.get(i));
+            Log.e("plzzzzz printeadsdsadsadsadsa", ""+clientcars.get(i));
+        }
+
         JSONArrayDownloader task1 = new JSONArrayDownloader();
         JSONObject obj;
+
+        ArrayAdapter<String> clientcaradapter =
+                new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, clientcars);
+        clientcaradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        car.setAdapter(clientcaradapter);
 
         try {
             objTypeRepair = task1.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepair").get();
