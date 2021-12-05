@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-
+    public double latitude,longitude;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel =
@@ -83,6 +83,10 @@ public class HomeFragment extends Fragment {
                 Log.i("CENAS", "CENAS");
                 getLocation();
                 Intent intent=new Intent(getContext(), MapsActivity.class);
+
+                intent.putExtra("Latitude", Double.toString(latitude));
+                intent.putExtra("Longitude", Double.toString(longitude));
+
                 startActivity(intent);
             }
         });
@@ -163,7 +167,8 @@ public class HomeFragment extends Fragment {
         Log.i("LocationInfo", location.toString());
 
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
-
+        latitude=location.getLatitude();
+        longitude=location.getLongitude();
         try {
 
             String address = "Could not find address";
