@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment {
     ListView repairs;
     Spinner car;
 
+
     LocationManager locationManager;
     LocationListener locationListener;
     ArrayList<String> typeRepairId;
