@@ -147,7 +147,6 @@ public class DatePickerFragment extends Fragment {
         return "JAN";
     }
 
-
     public void openDatePicker(View view)
     {
         datePickerDialog.show();
