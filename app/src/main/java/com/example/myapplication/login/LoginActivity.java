@@ -81,13 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                //finish();
-                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-                if(usernameEditText.getText().toString().equals("user")){
-                startActivity(intent);}
-                if(usernameEditText.getText().toString().equals("mechanic")){
+                finish();
 
-                }
             }
         });
 
@@ -134,7 +129,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
+        Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
