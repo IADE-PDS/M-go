@@ -2,6 +2,7 @@ package com.example.myapplication.ui;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,19 +13,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentDatePickerBinding;
 import com.example.myapplication.databinding.FragmentTypeRepairBinding;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class DatePickerFragment extends Fragment {
 
     private FragmentDatePickerBinding binding;
 
     private DatePickerDialog datePickerDialog;
-    private Button dateButton;
+    private Button dateButton,timeButton;
+    int hour,minute;
 
     public DatePickerFragment() {
         // Required empty public constructor
@@ -43,7 +47,7 @@ public class DatePickerFragment extends Fragment {
         View root = binding.getRoot();
 
         dateButton=binding.datePickerButton;
-
+        timeButton=binding.timeButton;
         initDatePicker();
 
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -52,9 +56,36 @@ public class DatePickerFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popTimePicker(timeButton);
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return root;
+    }
+    public void popTimePicker(View view)
+    {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+        {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute)
+            {
+                hour = selectedHour;
+                minute = selectedMinute;
+                timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d",hour, minute));
+            }
+        };
+
+        // int style = AlertDialog.THEME_HOLO_DARK;
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), /*style,*/ onTimeSetListener, hour, minute, true);
+
+        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.show();
     }
     private void initDatePicker()
     {
