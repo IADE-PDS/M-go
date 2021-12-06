@@ -44,7 +44,7 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment {
-    Button btnGps,btnRepairs;
+    Button btnGps,btnChoose;
     ListView repairs;
     Spinner car;
     int clientid=1;
@@ -74,15 +74,15 @@ public class HomeFragment extends Fragment {
 
 
         repairs= binding.listRepairs;
-        btnRepairs=binding.btnSearchRepairs;
+        btnChoose=binding.btnChoose;
         btnGps = binding.btnGps;
         car = binding.carSelector;
 
-        btnRepairs.setOnClickListener(new View.OnClickListener() {
+        btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view)
-                        .navigate(R.id.action_navigation_home_to_TypeRepairListView);
+                        .navigate(R.id.action_navigation_home_to_When);
             }
         });
 
@@ -298,7 +298,7 @@ public class HomeFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == btnRepairs.getId()){
+        if (id == btnChoose.getId()){
             String itemSelected = "Select items: \n";
             for(int i=0;i<repairs.getCount();i++){
                 if(repairs.isItemChecked(i)){

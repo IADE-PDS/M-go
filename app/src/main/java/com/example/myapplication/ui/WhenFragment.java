@@ -42,7 +42,7 @@ public class WhenFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view)
-                        .navigate(R.id.action_navigation_home_to_navigation_date_picker2);
+                        .navigate(R.id.action_When_to_navigation_date_picker);
             }
         });
 

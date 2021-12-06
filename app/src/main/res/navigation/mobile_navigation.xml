@@ -11,11 +11,8 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_TypeRepairListView"
-            app:destination="@id/TypeRepairListView" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_date_picker2"
-            app:destination="@id/navigation_date_picker" />
+            android:id="@+id/action_navigation_home_to_When"
+            app:destination="@id/When" />
     </fragment>
 
     <fragment
@@ -37,8 +34,12 @@
         tools:layout="@layout/fragment_date_picker" />
 
     <fragment
-        android:id="@+id/TypeRepairListView"
-        android:name="com.example.myapplication.ui.TypeRepairFragment"
-        android:label="Repairs"
-        android:layout="@layout/fragment_type_repair" />
+        android:id="@+id/When"
+        android:name="com.example.myapplication.ui.WhenFragment"
+        android:label="When"
+        android:layout="@layout/fragment_when" >
+        <action
+            android:id="@+id/action_When_to_navigation_date_picker"
+            app:destination="@id/navigation_date_picker" />
+    </fragment>
 </navigation>
