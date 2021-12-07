@@ -199,6 +199,7 @@ public class DashboardFragment extends Fragment {
         spinneryear.setAdapter(yearAdapter);
 
 
+
         ArrayAdapter<String> fuelAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, fuel);
         fuelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerfuel.setAdapter(fuelAdapter);

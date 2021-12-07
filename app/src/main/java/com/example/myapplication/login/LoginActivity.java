@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.CreateAccount;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityLogin2Binding;
@@ -34,9 +35,15 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private ActivityLogin2Binding binding;
 
+    TextView signUp;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        signUp = findViewById(R.id.signup);
+
+
 
         binding = ActivityLogin2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -81,13 +88,8 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                //finish();
-                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-                if(usernameEditText.getText().toString().equals("user")){
-                startActivity(intent);}
-                if(usernameEditText.getText().toString().equals("mechanic")){
+                finish();
 
-                }
             }
         });
 
@@ -130,15 +132,25 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
+
+    }
+
+    public void onClick(View v){
+        Intent intent = new Intent(getApplicationContext(), CreateAccount.class);
+        startActivity(intent);
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
+        Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
+
+
 }
