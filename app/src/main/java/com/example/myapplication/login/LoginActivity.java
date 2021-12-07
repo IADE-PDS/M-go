@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.CreateAccount;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityLogin2Binding;
@@ -34,9 +35,15 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private ActivityLogin2Binding binding;
 
+    TextView signUp;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        signUp = findViewById(R.id.signup);
+
+
 
         binding = ActivityLogin2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -125,6 +132,13 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
+
+    }
+
+    public void onClick(View v){
+        Intent intent = new Intent(getApplicationContext(), CreateAccount.class);
+        startActivity(intent);
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
@@ -137,4 +151,6 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
+
+
 }
