@@ -14,6 +14,19 @@ public class LoginDataSource {
 
     private String id;
     private JSONObject objLogin;
+    private int idint=34;
+
+    public LoginDataSource() {
+
+    }
+
+    public int getId() {
+        return idint;
+    }
+
+    public void setIdint(int idint) {
+        this.idint = idint;
+    }
 
     public Result<LoggedInUser> login(String username, String password) {
 
@@ -50,6 +63,9 @@ public class LoginDataSource {
         try {
             id = objLogin.getString("id");
             Log.e("id", id);
+            idint=Integer.parseInt(id);
+            Log.e("id", ""+idint);
+            setIdint(Integer.parseInt(id));
 
         } catch (JSONException e) {
             e.printStackTrace();

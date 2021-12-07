@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +21,7 @@ import java.util.Map;
 
 public class CreateAccount extends AppCompatActivity {
    public Button add;
-   public EditText name,email,number,password1,password2;
+   public EditText name,email,number,password1,password2,nif;
     JSONArray person = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class CreateAccount extends AppCompatActivity {
         number = findViewById(R.id.number);
         password1 = findViewById(R.id.password1);
         password2 = findViewById(R.id.password2);
+        nif = findViewById(R.id.nif);
 
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +56,8 @@ public class CreateAccount extends AppCompatActivity {
 
                         PostPersons taks1 = new PostPersons(postData);
                         taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/persons");
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), addCarActivity.class);
+                                               startActivity(intent);
 
 
                     } catch (Exception e) {
@@ -67,12 +70,35 @@ public class CreateAccount extends AppCompatActivity {
                 else{
                     Toast.makeText(CreateAccount.this, "The passwords don't coincide", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(CreateAccount.this, "The passwords don't coincide", Toast.LENGTH_SHORT).show();
+
+
+
+                try {
+
+
+                   // Map<String, String> postData = new HashMap<>();
+                    //postData.put("clientPerson", name.getText().toString());
+                    //postData.put("clientNif", nif.getText().toString());
+
+
+
+
+                    //PostPersons taks1 = new PostPersons(postData);
+                    //taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/persons");
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    person = null;
+                }
             }
         });
 
 
 
     }
+
+
 
 }

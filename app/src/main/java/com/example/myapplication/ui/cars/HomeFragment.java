@@ -31,6 +31,7 @@ import com.example.myapplication.Downloaders.JSONArrayDownloader;
 //import com.example.myapplication.JSONArrayDownloader;
 import com.example.myapplication.MapsActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 
 import org.json.JSONArray;
@@ -47,7 +48,8 @@ public class HomeFragment extends Fragment {
     Button btnGps,btnChoose;
     ListView repairs;
     Spinner car;
-    int clientid=1;
+    LoginDataSource id = new LoginDataSource();
+    int clientid=1;//Integer.parseInt(id.getId());
 
 
     LocationManager locationManager;
@@ -65,6 +67,7 @@ public class HomeFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -98,6 +101,9 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Log.e("whis",""+id.getId());
+
 
         JSONArrayDownloader task = new JSONArrayDownloader();
         JSONArray objTypeRepair;

@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             // Perform an action with the latest item data
         });
 
-        System.out.println("thissss"+viewModel);
 
 
 
