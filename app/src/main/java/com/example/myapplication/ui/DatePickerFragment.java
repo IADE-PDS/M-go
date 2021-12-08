@@ -4,10 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +11,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import com.example.myapplication.R;
+import androidx.fragment.app.Fragment;
+
 import com.example.myapplication.databinding.FragmentDatePickerBinding;
-import com.example.myapplication.databinding.FragmentTypeRepairBinding;
 
 import java.util.Calendar;
 import java.util.Locale;
