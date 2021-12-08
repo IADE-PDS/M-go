@@ -33,6 +33,7 @@ import com.example.myapplication.MapsActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentHomeBinding;
+import com.example.myapplication.login.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class HomeFragment extends Fragment {
     ListView repairs;
     Spinner car;
     LoginDataSource id = new LoginDataSource();
-    int clientid=1;//Integer.parseInt(id.getId());
+
 
 
     LocationManager locationManager;
@@ -113,7 +114,7 @@ public class HomeFragment extends Fragment {
         JSONObject clientcar;
 
         try {
-            objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+clientid).get();
+            objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+ LoginDataSource.idint).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             objCar = null;

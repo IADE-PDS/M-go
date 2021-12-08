@@ -14,7 +14,7 @@ public class LoginDataSource {
 
     private String id;
     private JSONObject objLogin;
-    private int idint=34;
+    public static int idint=1;
 
     public LoginDataSource() {
 

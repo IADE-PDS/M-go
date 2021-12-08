@@ -19,7 +19,7 @@ import java.util.Map;
 public class PostPersons extends AsyncTask<String, Void, JSONArray>{
 
     JSONObject postData;
-
+    JSONArray JsonData;
     public PostPersons(Map<String, String> postData) {
         if (postData != null) {
             this.postData = new JSONObject(postData);
@@ -57,7 +57,12 @@ public class PostPersons extends AsyncTask<String, Void, JSONArray>{
                 String response = convertInputStreamToString(inputStream);
                 Log.i("RESULT", response);
 
-                // Falta converter para JSON ARRAY ou JSONOBJECT
+                JSONObject obj = new JSONObject(response);
+
+                JsonData = new JSONArray();
+
+                JsonData.put(obj);
+
 
             } else {
                 // Quando o código não devolve o 200
@@ -69,7 +74,7 @@ public class PostPersons extends AsyncTask<String, Void, JSONArray>{
             return null;
         }
 
-        return null;
+        return JsonData;
     }
 
     private String convertInputStreamToString(InputStream inputStream) {

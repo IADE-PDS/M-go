@@ -34,13 +34,28 @@
         tools:layout="@layout/fragment_date_picker" />
 
     <fragment
+        android:id="@+id/navigation_add_carrrr"
+        android:name="com.example.myapplication.AddCarrrrrFragment"
+        android:label="Pick date"
+        tools:layout="@layout/fragment_add_carrrrr" />
+
+    <fragment
+        android:id="@+id/navigation_add_car_activity"
+        android:name="com.example.myapplication.addCarActivity"
+        android:label="Pick date"
+        tools:layout="@layout/activity_add_car" />
+
+    <fragment
         android:id="@+id/createAcc"
         android:name="com.example.myapplication.CreateAccount"
         android:label="Create Account"
         android:layout="@layout/activity_create_account" >
         <action
-            android:id="@+id/action_createAcc_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/action_createAcc_to_navigation_add_carrrr"
+            app:destination="@id/navigation_add_carrrr" />
+        <action
+            android:id="@+id/action_createAcc_to_navigation_add_car_activity"
+            app:destination="@id/navigation_add_car_activity" />
     </fragment>
 
     <fragment
