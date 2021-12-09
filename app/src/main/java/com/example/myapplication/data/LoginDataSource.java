@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 public class LoginDataSource {
 
     private String id;
+    public static String isMechanic;
     private JSONObject objLogin;
     public static int idint=1;
 
@@ -23,6 +24,7 @@ public class LoginDataSource {
     public int getId() {
         return idint;
     }
+
 
     public void setIdint(int idint) {
         this.idint = idint;
@@ -61,6 +63,7 @@ public class LoginDataSource {
         Log.e("Login", ""+objLogin);
 
         try {
+            isMechanic = objLogin.getString("personIsMechanic");
             id = objLogin.getString("id");
             Log.e("id", id);
             idint=Integer.parseInt(id);

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,8 +26,11 @@ import android.widget.Toast;
 
 import com.example.myapplication.CreateAccount;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.MechanicActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.ActivityLogin2Binding;
+import com.example.myapplication.databinding.ActivityMechanicBinding;
 import com.example.myapplication.login.LoginFormState;
 import com.example.myapplication.login.LoginResult;
 
@@ -147,9 +151,20 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+        Log.e("IS mechanic",""+LoginDataSource.isMechanic);
+        Log.e("IS mechanic",""+LoginDataSource.isMechanic.equals("false"));
+        if (LoginDataSource.isMechanic.equals("false")){
+            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        else {
+            Intent intent=new Intent(LoginActivity.this, MechanicActivity.class);
+            startActivity(intent);
+        }
+
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
