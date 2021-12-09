@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment {
         btnGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MapsActivity maps=new MapsActivity();
                 getLocation();
                 Intent intent=new Intent(getContext(), MapsActivity.class);
 
@@ -239,7 +240,7 @@ public class HomeFragment extends Fragment {
             ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }else {
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {

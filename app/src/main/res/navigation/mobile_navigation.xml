@@ -34,10 +34,10 @@
         tools:layout="@layout/fragment_date_picker" />
 
     <fragment
-        android:id="@+id/navigation_add_carrrr"
-        android:name="com.example.myapplication.AddCarrrrrFragment"
+        android:id="@+id/navigation_place_picker"
+        android:name="com.example.myapplication.PlacePickerFragment"
         android:label="Pick date"
-        tools:layout="@layout/fragment_add_carrrrr" />
+        tools:layout="@layout/fragment_place_picker" />
 
     <fragment
         android:id="@+id/navigation_add_car_activity"
@@ -51,9 +51,6 @@
         android:label="Create Account"
         android:layout="@layout/activity_create_account" >
         <action
-            android:id="@+id/action_createAcc_to_navigation_add_carrrr"
-            app:destination="@id/navigation_add_carrrr" />
-        <action
             android:id="@+id/action_createAcc_to_navigation_add_car_activity"
             app:destination="@id/navigation_add_car_activity" />
     </fragment>
@@ -66,5 +63,8 @@
         <action
             android:id="@+id/action_When_to_navigation_date_picker"
             app:destination="@id/navigation_date_picker" />
+        <action
+            android:id="@+id/action_When_to_navigation_place_picker"
+            app:destination="@id/navigation_place_picker" />
     </fragment>
 </navigation>
