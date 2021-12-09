@@ -31,7 +31,7 @@ public class CreateAccount extends AppCompatActivity {
    public EditText name,email,number,password1,password2,nif;
    public JSONArray NewAcc;
    public String id;
-    JSONArray person = null;
+   JSONArray person = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,8 +110,7 @@ public class CreateAccount extends AppCompatActivity {
                     taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/clients");
 
 
-
-                    Navigation.findNavController(view).navigate(R.id.action_createAcc_to_navigation_add_car_activity);
+                    startActivity(new Intent(CreateAccount.this, TestActivity.class));
 
 
 

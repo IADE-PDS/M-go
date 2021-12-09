@@ -99,7 +99,6 @@ public class addCarActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-
                 JSONArray spotsArray = null;
                 Log.e("thisissss",""+ brandsId.get(0));
                 JSONArrayDownloader task = new JSONArrayDownloader();
