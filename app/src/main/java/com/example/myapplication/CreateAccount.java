@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
+import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.ui.cars.HomeFragment;
 
 import org.json.JSONArray;
@@ -108,7 +109,8 @@ public class CreateAccount extends AppCompatActivity {
                     PostPersons taks1 = new PostPersons(postData);
                     taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/clients");
 
-
+                    LoginDataSource loginDataSource = new LoginDataSource();
+                    loginDataSource.login(name.getText().toString(), password1.getText().toString());
 
                     startActivity(new Intent(CreateAccount.this, addCarActivity.class));
 

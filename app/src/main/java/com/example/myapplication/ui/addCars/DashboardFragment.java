@@ -18,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.PostPersons;
+import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
 
 import org.json.JSONArray;
@@ -205,8 +206,8 @@ public class DashboardFragment extends Fragment {
         spinnerfuel.setAdapter(fuelAdapter);
 
 
-
-
+        Log.e("Client id Login data sourced",""+LoginDataSource.idint);
+        Log.e("Client id dashboard view model",""+DashboardViewModel.getClientId(LoginDataSource.idint));
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,11 +218,12 @@ public class DashboardFragment extends Fragment {
                     Map<String, String> postData = new HashMap<>();
                     postData.put("carLicensePlate", numberplate.getText().toString());
                     postData.put("carYear", spinneryear.getSelectedItem().toString());
-                    postData.put("carClientId", "2");
-                    postData.put("carModel", iddeveloper(modelsName,modelsId,spinnerBrands));
+                    postData.put("carClientId", ""+DashboardViewModel.getClientId(LoginDataSource.idint));
+                    postData.put("carModelId", iddeveloper(modelsName,modelsId,spinnerBrands));
                     postData.put("carBrandId", iddeveloper(brandNames,brandsId,spinnerBrands));
                     postData.put("carTransmission", spinnertransmission.getSelectedItem().toString());
                     postData.put("carFuel", spinnerfuel.getSelectedItem().toString());
+                    postData.put("carEngineId", iddeveloper(engineName,engineId,spinnerengine));
 
 
                     PostPersons taks1 = new PostPersons(postData);

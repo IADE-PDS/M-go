@@ -14,7 +14,9 @@ import android.widget.Spinner;
 
 import com.android.volley.RequestQueue;
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
+import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
+import com.example.myapplication.ui.addCars.DashboardViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -202,7 +204,6 @@ public class addCarActivity extends AppCompatActivity {
 
 
 
-
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,11 +213,12 @@ public class addCarActivity extends AppCompatActivity {
                     Map<String, String> postData = new HashMap<>();
                     postData.put("carLicensePlate", numberplate.getText().toString());
                     postData.put("carYear", spinneryear.getSelectedItem().toString());
-                    postData.put("carClientId", "2");
-                    postData.put("carModel", iddeveloper(modelsName,modelsId,spinnerBrands));
+                    postData.put("carClientId", ""+DashboardViewModel.getClientId(LoginDataSource.idint));
+                    postData.put("carModelId", iddeveloper(modelsName,modelsId,spinnerBrands));
                     postData.put("carBrandId", iddeveloper(brandNames,brandsId,spinnerBrands));
                     postData.put("carTransmission", spinnertransmission.getSelectedItem().toString());
                     postData.put("carFuel", spinnerfuel.getSelectedItem().toString());
+                    postData.put("carEngineId", iddeveloper(engineName,engineId,spinnerengine));
 
 
                     PostPersons taks1 = new PostPersons(postData);

@@ -93,7 +93,6 @@ public class HomeFragment extends Fragment {
         btnGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("CENAS", "CENAS");
                 getLocation();
                 Intent intent=new Intent(getContext(), MapsActivity.class);
 
@@ -103,7 +102,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Log.e("whis",""+id.getId());
+
 
 
         JSONArrayDownloader task = new JSONArrayDownloader();
@@ -113,6 +112,8 @@ public class HomeFragment extends Fragment {
         //Gets the cars of a client
         JSONObject clientcar;
 
+        Log.e("",""+LoginDataSource.idint);
+
         try {
             objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+ LoginDataSource.idint).get();
         } catch (ExecutionException | InterruptedException e) {
@@ -120,7 +121,7 @@ public class HomeFragment extends Fragment {
             objCar = null;
         }
 
-        Log.e("carrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", ""+objCar);
+
 
 
 
@@ -131,26 +132,23 @@ public class HomeFragment extends Fragment {
                 try {
 
                     clientcar = objCar.getJSONObject(i).getJSONObject("carModel").getJSONObject("modelEngineModel");
-                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+clientcar.getString("modelName"));
-                    Log.e("sfdkjfhnsdkljnvfsdujhnv", ""+clientcar.getJSONObject("modelBrand").getString("brandName"));
                     modelsName.add(clientcar.getString("modelName"));
                     brandNames.add(clientcar.getJSONObject("modelBrand").getString("brandName"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("dasdkfjchasdjfjsdljhvsdn fjhvdknv jkfsdjasc jksfdvdnc", "vbljnwdsvjhwdb jkwebduyhf gwejdhb ferjkgfjkdwbvjywebfmchnbwerjhfgbwejcbjkwerhg");
+
                 }
 
             }
         }
 
-        Log.e("Size22222222222222222222222222222222222", ""+brandNames.size());
 
         clientcars = new ArrayList<>();
 
         if (brandNames.size()>1){
             for (int i=0;i<modelsName.size();i++){
                 clientcars.add(brandNames.get(i)+" "+modelsName.get(i));
-                Log.e("plzzzzz printeadsdsadsadsadsa", ""+clientcars.get(i));
+
             }
         }
         else {
@@ -186,7 +184,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         }
-        Log.i("1",typeRepairNames.toString());
+
 
         initializeMyLListView();
 
@@ -240,7 +238,7 @@ public class HomeFragment extends Fragment {
 
     public void updateLocationInfo(Location location) {
 
-        Log.i("LocationInfo", location.toString());
+
 
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         latitude=location.getLatitude();
