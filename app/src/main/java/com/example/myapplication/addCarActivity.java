@@ -46,7 +46,7 @@ public class addCarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_car);
+        setContentView(R.layout.fragment_dashboard);
 
         ArrayList<String> yearList = new ArrayList<>();
 
@@ -58,6 +58,7 @@ public class addCarActivity extends AppCompatActivity {
         spinnerfuel = findViewById(R.id.fuel);
         spinnerBrands = findViewById(R.id.marca);
         spinnertransmission = findViewById(R.id.transmissao);
+        spinnermodels = findViewById(R.id.modelo);
         numberplate = findViewById(R.id.NumberPlate);
         spinneryear = findViewById(R.id.year);
         add = findViewById(R.id.adicionar);
@@ -127,6 +128,9 @@ public class addCarActivity extends AppCompatActivity {
                     }
                 }
 
+                ArrayAdapter<String> modeladapter = new ArrayAdapter<String>(addCarActivity.this, android.R.layout.simple_spinner_item, modelsName);
+                modeladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnermodels.setAdapter(modeladapter);
 
 
 
@@ -159,9 +163,14 @@ public class addCarActivity extends AppCompatActivity {
                 Log.e("models",""+modelsName.toString()) ;
 
 
+                ArrayAdapter<String> engineAdapter = new ArrayAdapter<String>(addCarActivity.this, android.R.layout.simple_spinner_item, engineName);
+                engineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerengine.setAdapter(engineAdapter);
 
                 //Log.e("this",enginelist.toString());
             }
+
+
 
 
             @Override
@@ -172,6 +181,11 @@ public class addCarActivity extends AppCompatActivity {
 
 
         test();
+
+
+
+
+
         ArrayAdapter<String> transAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, transmissao);
         transAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnertransmission.setAdapter(transAdapter);
@@ -208,9 +222,9 @@ public class addCarActivity extends AppCompatActivity {
 
                     PostPersons taks1 = new PostPersons(postData);
                     taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/cars");
+
                     Intent intent = new Intent(addCarActivity.this, MainActivity.class);
                     startActivity(intent);
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -243,13 +257,7 @@ public class addCarActivity extends AppCompatActivity {
 
     public void test(){
 
-        ArrayAdapter<String> modeladapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, modelsName);
-        modeladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnermodels.setAdapter(modeladapter);
 
-        ArrayAdapter<String> engineAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, engineName);
-        engineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerengine.setAdapter(engineAdapter);
     }
 
 }

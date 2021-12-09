@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class CreateAccount extends AppCompatActivity {
-   public Button add,continu;
+   public Button add;
    public EditText name,email,number,password1,password2,nif;
    public JSONArray NewAcc;
    public String id;
@@ -44,7 +44,6 @@ public class CreateAccount extends AppCompatActivity {
         password1 = findViewById(R.id.password1);
         password2 = findViewById(R.id.password2);
         nif = findViewById(R.id.nif);
-        continu = findViewById(R.id.cont);
 
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +110,7 @@ public class CreateAccount extends AppCompatActivity {
 
 
 
-                    Navigation.findNavController(view).navigate(R.id.action_createAcc_to_navigation_add_car_activity);
+                    startActivity(new Intent(CreateAccount.this, addCarActivity.class));
 
 
 
@@ -122,12 +121,6 @@ public class CreateAccount extends AppCompatActivity {
             }
         });
 
-        continu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateAccount.this, TestActivity.class));
-            }
-        });
 
     }
 
