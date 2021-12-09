@@ -34,6 +34,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.example.myapplication.login.LoginActivity;
+import com.example.myapplication.ui.addCars.DashboardViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,7 +116,7 @@ public class HomeFragment extends Fragment {
         Log.e("",""+LoginDataSource.idint);
 
         try {
-            objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+ LoginDataSource.idint).get();
+            objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+ DashboardViewModel.getClientId(LoginDataSource.idint)).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             objCar = null;
@@ -131,7 +132,7 @@ public class HomeFragment extends Fragment {
             for(int i = 0; i < objCar.length(); i++) {
                 try {
 
-                    clientcar = objCar.getJSONObject(i).getJSONObject("carModel").getJSONObject("modelEngineModel");
+                    clientcar = objCar.getJSONObject(i).getJSONObject("carModel");
                     modelsName.add(clientcar.getString("modelName"));
                     brandNames.add(clientcar.getJSONObject("modelBrand").getString("brandName"));
                 } catch (JSONException e) {
