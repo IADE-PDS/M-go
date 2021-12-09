@@ -35,6 +35,10 @@ import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.example.myapplication.login.LoginActivity;
 import com.example.myapplication.ui.addCars.DashboardViewModel;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -204,10 +208,17 @@ public class HomeFragment extends Fragment {
 
     public void getLocation() {
         locationManager = (LocationManager) this.getContext().getSystemService(Context.LOCATION_SERVICE);
+
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
                 updateLocationInfo(location);
+
+                LatLng latLng=new LatLng(location.getLatitude(),location.getLongitude());
+                MapsActivity.mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                MapsActivity.mMap.animateCamera(CameraUpdateFactory.zoomTo(19));
+                MapsActivity.marker.setPosition(latLng);
             }
 
             @Override
@@ -228,7 +239,7 @@ public class HomeFragment extends Fragment {
             ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }else {
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, locationListener);
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {
