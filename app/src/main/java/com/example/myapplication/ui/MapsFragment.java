@@ -1,5 +1,7 @@
 package com.example.myapplication.ui;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -9,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.MapsActivity;
+import com.example.myapplication.ui.cars.HomeFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -64,6 +69,7 @@ public class MapsFragment extends Fragment {
     private View rootView;
     HashMap<String, String> markerMap = new HashMap<String, String>();
     private GoogleMap mMap;
+    LocationManager locationManager;
     double tvLatitude, tvLongitude;
 
     FusedLocationProviderClient client;
@@ -82,21 +88,23 @@ public class MapsFragment extends Fragment {
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.mapsFragment);
 
+
+
+
         // Async map
+
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
+
+
+
                 LatLng santos = new LatLng(38.70843814152426, -9.15501526730533);
                 LatLng userLocation = new LatLng(tvLatitude, tvLongitude);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(santos, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
-                Marker markeruser = googleMap.addMarker(new MarkerOptions().position(userLive)
-                        .title("Está aqui"));
+                Marker markerOne = googleMap.addMarker(new MarkerOptions().position(santos));
                 //When map is loaded
-                LatLng iade = new LatLng(38.707300302202206, -9.152475617141915);
-                Marker markerOne = googleMap.addMarker(new MarkerOptions().position(iade)
-                        .title("UE - IADE")
-                        .snippet("Universidade"));
 
                 String firstid = markerOne.getId();
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -114,7 +122,7 @@ public class MapsFragment extends Fragment {
                         //Remove all marker
                         googleMap.clear();
                         // Animating to zoom the marker
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                         //Add marker on map
                         googleMap.addMarker(markerOptions);
 

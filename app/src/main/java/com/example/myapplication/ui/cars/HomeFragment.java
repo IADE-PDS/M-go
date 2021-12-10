@@ -218,7 +218,7 @@ public class HomeFragment extends Fragment {
 
                 LatLng latLng=new LatLng(location.getLatitude(),location.getLongitude());
                 MapsActivity.mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                MapsActivity.mMap.animateCamera(CameraUpdateFactory.zoomTo(21));
+                MapsActivity.mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
                 MapsActivity.marker.setPosition(latLng);
             }
 
