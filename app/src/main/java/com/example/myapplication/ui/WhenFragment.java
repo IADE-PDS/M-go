@@ -47,9 +47,9 @@ public class WhenFragment extends Fragment {
         urgentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.action_When_to_navigation_place_picker);
-                Intent intent=new Intent(getContext(),CustomPlacePickerActivity.class);
-                startActivity(intent);
+                Navigation.findNavController(view).navigate(R.id.action_When_to_maps_fragment);
+                /*Intent intent=new Intent(getContext(),CustomPlacePickerActivity.class);
+                startActivity(intent);*/
             }
         });
 

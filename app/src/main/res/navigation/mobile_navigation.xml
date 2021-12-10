@@ -22,6 +22,12 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/maps_fragment"
+        android:name="com.example.myapplication.ui.MapsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_maps" />
+
+    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.myapplication.ui.profile.NotificationsFragment"
         android:label="@string/title_notifications"
@@ -32,12 +38,6 @@
         android:name="com.example.myapplication.ui.DatePickerFragment"
         android:label="Pick date"
         tools:layout="@layout/fragment_date_picker" />
-
-    <fragment
-        android:id="@+id/navigation_place_picker"
-        android:name="com.example.myapplication.PlacePickerFragment"
-        android:label="Pick date"
-        tools:layout="@layout/fragment_place_picker" />
 
     <fragment
         android:id="@+id/navigation_add_car_activity"
@@ -64,7 +64,7 @@
             android:id="@+id/action_When_to_navigation_date_picker"
             app:destination="@id/navigation_date_picker" />
         <action
-            android:id="@+id/action_When_to_navigation_place_picker"
-            app:destination="@id/navigation_place_picker" />
+            android:id="@+id/action_When_to_maps_fragment"
+            app:destination="@id/maps_fragment" />
     </fragment>
 </navigation>
