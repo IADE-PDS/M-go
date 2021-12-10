@@ -17,4 +17,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >3 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="Messages">Messages</string>
+    <string name="mecanicfav">Favorite Mechanics</string>
+    <string name="lastRepairs">Previus Repairs</string>
+    <string name="support">Support</string>
+    <string name="removecar">Remove car</string>
 </resources>

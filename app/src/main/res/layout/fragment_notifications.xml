@@ -6,56 +6,98 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.NotificationsFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="-10dp"
-        app:cardElevation="8dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="46dp"
+            android:layout_height="42dp"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_my_profile" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageViewLogo"
-                android:layout_width="58dp"
-                android:layout_height="51dp"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_my_profile" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/profileName"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/profileName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="profileName" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="profileName" />
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="413dp"
+        android:layout_height="410dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="64dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/suport"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/support"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/removeCar"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/removecar"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/lastRepairs"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/lastRepairs"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/Messages"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/favMech"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/mecanicfav"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
