@@ -103,14 +103,14 @@ public class MapsFragment extends Fragment {
 
 
 
-                LatLng santos = new LatLng(38.70843814152426, -9.15501526730533);
+
 
                 getCurrentLocation();
                 LatLng userLocation = new LatLng(latitude, longitude);
-                Log.e("User locationnnnnnnnn",""+userLocation);
+
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
-                Marker markerOne = googleMap.addMarker(new MarkerOptions().position(santos));
+                Marker markerOne = googleMap.addMarker(new MarkerOptions().position(userLocation));
                 //When map is loaded
 
                 String firstid = markerOne.getId();
