@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,9 @@ public class MapsFragment extends Fragment {
     HashMap<String, String> markerMap = new HashMap<String, String>();
     private GoogleMap mMap;
     LocationManager locationManager;
-    double tvLatitude, tvLongitude;
+    public double tvLatitude, tvLongitude;
+    public static double latitude=0, longitude=0;
+    public LatLng userLocation;
 
     FusedLocationProviderClient client;
 
@@ -91,6 +94,7 @@ public class MapsFragment extends Fragment {
 
 
 
+
         // Async map
 
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -100,8 +104,11 @@ public class MapsFragment extends Fragment {
 
 
                 LatLng santos = new LatLng(38.70843814152426, -9.15501526730533);
-                LatLng userLocation = new LatLng(tvLatitude, tvLongitude);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(santos, 16));
+
+                getCurrentLocation();
+                LatLng userLocation = new LatLng(latitude, longitude);
+                Log.e("User locationnnnnnnnn",""+userLocation);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
                 Marker markerOne = googleMap.addMarker(new MarkerOptions().position(santos));
                 //When map is loaded
@@ -187,8 +194,19 @@ public class MapsFragment extends Fragment {
                         //When Location result is not null
                         //Set latitude
                         tvLatitude = location.getLatitude();
+                        Log.e("latitude before if",""+latitude);
+                        if (latitude==0)
+                        latitude = tvLatitude;
+                        Log.e("latitude after if",""+latitude);
+                        Log.e("Latitude",""+tvLatitude);
                         //Set longitude
                         tvLongitude = location.getLongitude();
+                        Log.e("longitude before if",""+longitude);
+                        if (longitude==0)
+                        longitude = tvLongitude;
+                        Log.e("longitude after if",""+longitude);
+                        Log.e("Longitude",""+tvLongitude);
+
                     }else{
                         //When location result is null
                         //Initialize location request
