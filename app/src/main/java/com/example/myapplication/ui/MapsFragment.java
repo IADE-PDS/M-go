@@ -117,9 +117,9 @@ public class MapsFragment extends Fragment {
                 MarkerOptions marker = new MarkerOptions();
                 marker.position(userLocation);
                 marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_profile));
-                mMap.addMarker(new MarkerOptions().position(userLocation));
-
+                googleMap.addMarker(new MarkerOptions().position(userLocation));
                 String firstid = markerOne.getId();
+
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng latLng) {
