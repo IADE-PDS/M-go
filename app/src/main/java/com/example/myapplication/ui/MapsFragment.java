@@ -120,6 +120,7 @@ public class MapsFragment extends Fragment {
                 googleMap.addMarker(new MarkerOptions().position(userLocation));
                 String firstid = markerOne.getId();
 
+
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng latLng) {
