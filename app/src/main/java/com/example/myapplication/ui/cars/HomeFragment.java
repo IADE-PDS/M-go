@@ -330,3 +330,5 @@ public class HomeFragment extends Fragment {
 
 
 }
+
+//implement http://android-er.blogspot.com/2017/03/android-listview-with-checkbox.html
