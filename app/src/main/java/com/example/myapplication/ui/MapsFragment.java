@@ -101,7 +101,7 @@ public class MapsFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
 
-
+                mMap = googleMap;
 
                 LatLng santos = new LatLng(38.70843814152426, -9.15501526730533);
 
@@ -114,11 +114,22 @@ public class MapsFragment extends Fragment {
                 //When map is loaded
 
 
+               // MarkerOptions marker = new MarkerOptions();
+
+                LatLng viseuCity = new LatLng(40.656585, -7.912470);
+
+
+
                 MarkerOptions marker = new MarkerOptions();
-                marker.position(userLocation);
+                marker.position(viseuCity);
+                marker.title("Centro da cidade de Viseu");
                 marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_profile));
-                googleMap.addMarker(new MarkerOptions().position(userLocation));
-                String firstid = markerOne.getId();
+                mMap.addMarker(marker);
+
+                //marker.position(userLocation);
+                //                marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_profile));
+                //                googleMap.addMarker(new MarkerOptions().position(userLocation));
+                //                String firstid = markerOne.getId();
 
 
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
