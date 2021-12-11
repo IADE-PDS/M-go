@@ -112,6 +112,7 @@ public class MapsFragment extends Fragment {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
 
+
                 //When map is loaded
 
                 Marker markerOne = googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker()).position(userLocation));
@@ -133,6 +134,7 @@ public class MapsFragment extends Fragment {
                         // Initialize marker options
                         MarkerOptions markerOptions = new MarkerOptions();
                         // Set position of marker
+
                         markerOptions.position(latLng);
                         // Set title of marker
                         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
@@ -144,6 +146,8 @@ public class MapsFragment extends Fragment {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                         //Add marker on map
                         googleMap.addMarker(markerOptions);
+                        LatLng userLocation = new LatLng(latitude, longitude);
+                        Marker markertwo = googleMap.addMarker(new MarkerOptions().position(userLocation).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
                     }
                 });
