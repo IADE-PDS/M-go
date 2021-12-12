@@ -34,7 +34,7 @@
         android:id="@+id/list_repairs"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="100dp"
         android:contextClickable="true"
         android:foregroundGravity="center_horizontal"
         android:scaleX="1"

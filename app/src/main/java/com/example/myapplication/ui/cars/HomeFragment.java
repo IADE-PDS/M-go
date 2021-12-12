@@ -1,9 +1,12 @@
 package com.example.myapplication.ui.cars;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,10 +18,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -29,6 +38,7 @@ import androidx.navigation.Navigation;
 
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
 //import com.example.myapplication.JSONArrayDownloader;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.MapsActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.data.LoginDataSource;
@@ -70,6 +80,117 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     public double latitude,longitude;
 
+    public class Item {
+        boolean checked;
+        Drawable ItemDrawable;
+        String ItemString;
+        Item( String t, boolean b){
+            ItemString = t;
+            checked = b;
+        }
+
+        public boolean isChecked(){
+            return checked;
+        }
+    }
+
+    static class ViewHolder {
+        CheckBox checkBox;
+        ImageView icon;
+        TextView text;
+    }
+
+    public class ItemsListAdapter extends BaseAdapter {
+
+        private Context context;
+        private List<Item> list;
+
+        ItemsListAdapter(Context c, List<Item> l) {
+            context = c;
+            list = l;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public boolean isChecked(int position) {
+            return list.get(position).checked;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View rowView = convertView;
+
+            // reuse views
+            ViewHolder viewHolder = new ViewHolder();
+            if (rowView == null) {
+                LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+                rowView = inflater.inflate(R.layout.row, null);
+
+                viewHolder.checkBox = (CheckBox) rowView.findViewById(R.id.rowCheckBox);
+                viewHolder.icon = (ImageView) rowView.findViewById(R.id.rowImageView);
+                viewHolder.text = (TextView) rowView.findViewById(R.id.rowTextView);
+                rowView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) rowView.getTag();
+            }
+
+            viewHolder.icon.setImageDrawable(list.get(position).ItemDrawable);
+            viewHolder.checkBox.setChecked(list.get(position).checked);
+
+            final String itemStr = list.get(position).ItemString;
+            viewHolder.text.setText(itemStr);
+
+            viewHolder.checkBox.setTag(position);
+
+            /*
+            viewHolder.checkBox.setOnCheckedChangeListener(
+                    new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    list.get(position).checked = b;
+
+                    Toast.makeText(getApplicationContext(),
+                            itemStr + "onCheckedChanged\nchecked: " + b,
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+            */
+
+            viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean newState = !list.get(position).isChecked();
+                    list.get(position).checked = newState;
+                    Toast.makeText(getContext(),
+                            itemStr + "setOnClickListener\nchecked: " + newState,
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
+            viewHolder.checkBox.setChecked(isChecked(position));
+
+            return rowView;
+        }
+    }
+
+    Button btnLookup;
+    List<Item> items;
+    ListView listView;
+    ItemsListAdapter myItemsListAdapter;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,6 +207,49 @@ public class HomeFragment extends Fragment {
         btnChoose=binding.btnChoose;
         btnGps = binding.btnGps;
         car = binding.carSelector;
+        listView = binding.listRepairs;
+        btnLookup = binding.btnChoose;
+
+
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getContext(),
+                        ((Item)(parent.getItemAtPosition(position))).ItemString,
+                        Toast.LENGTH_LONG).show();
+            }});
+
+        btnLookup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = "Check items:\n";
+
+                for (int i=0; i<items.size(); i++){
+                    if (items.get(i).isChecked()){
+                        str += i + "\n";
+                    }
+                }
+
+                /*
+                int cnt = myItemsListAdapter.getCount();
+                for (int i=0; i<cnt; i++){
+                    if(myItemsListAdapter.isChecked(i)){
+                        str += i + "\n";
+                    }
+                }
+                */
+
+                Toast.makeText(getContext(),
+                        str,
+                        Toast.LENGTH_LONG).show();
+
+            }
+        });
+
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,9 +356,13 @@ public class HomeFragment extends Fragment {
         }
 
 
-        initializeMyLListView();
 
 
+        //initializeMyLListView();
+
+        initItems();
+        myItemsListAdapter = new ItemsListAdapter(getContext(), items);
+        listView.setAdapter(myItemsListAdapter);
 
 
 
@@ -326,6 +494,25 @@ public class HomeFragment extends Fragment {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initItems(){
+        items = new ArrayList<Item>();
+
+        //TypedArray arrayDrawable = getResources().obtainTypedArray(R.array.resicon);
+        TypedArray arrayText = getResources().obtainTypedArray(R.array.marca);
+
+        for(int i=0; i<typeRepairNames.size(); i++){
+            Log.e("type repair inside init",""+typeRepairNames);
+            String s = ""+typeRepairNames.get(i);
+           // String s = arrayText.getString(i);
+            boolean b = false;
+            Item item = new Item(s, b);
+            items.add(item);
+        }
+
+
+        arrayText.recycle();
     }
 
 
