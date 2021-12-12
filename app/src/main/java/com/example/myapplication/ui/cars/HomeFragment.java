@@ -40,6 +40,7 @@ import com.example.myapplication.Downloaders.JSONArrayDownloader;
 //import com.example.myapplication.JSONArrayDownloader;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.MapsActivity;
+import com.example.myapplication.PostPersons;
 import com.example.myapplication.R;
 import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentHomeBinding;
@@ -56,8 +57,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment {
@@ -254,8 +257,33 @@ public class HomeFragment extends Fragment {
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<String> idselected;
+                idselected = new ArrayList<>();
                 Navigation.findNavController(view)
                         .navigate(R.id.action_navigation_home_to_When);
+
+                for (int i = 0; i < items.size(); i++) {
+                    if (items.get(i).checked){
+                        idselected.add(typeRepairId.get(i));
+                    }
+
+                }
+
+
+
+
+
+
+
+
+
+                Map<String, String> postData = new HashMap<>();
+                postData.put("carLicensePlate", typeRepairId.get(1));
+
+
+
+                PostPersons taks1 = new PostPersons(postData);
+                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/cars");
             }
         });
 
