@@ -70,7 +70,10 @@ public class HomeFragment extends Fragment {
     LoginDataSource id = new LoginDataSource();
 
 
+    String idRepair;
 
+
+    public JSONArray post;
     LocationManager locationManager;
     LocationListener locationListener;
     ArrayList<String> typeRepairId;
@@ -78,6 +81,7 @@ public class HomeFragment extends Fragment {
     ArrayList<String> modelsName;
     ArrayList<String> brandNames;
     ArrayList<String> clientcars;
+    ArrayList<String> carId;
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -262,10 +266,78 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view)
                         .navigate(R.id.action_navigation_home_to_When);
 
+
+
                 for (int i = 0; i < items.size(); i++) {
                     if (items.get(i).checked){
                         idselected.add(typeRepairId.get(i));
                     }
+
+                }
+
+                for (int i = 0; i <idselected.size() ; i++) {
+
+
+
+
+                    for (int o = 0; o < brandNames.size() ; i++) {
+                        if(car.getSelectedItem().toString().contains(brandNames.get(o))){
+
+                            Map<String, String> postData = new HashMap<>();
+                            postData.put("repairCar", carId.get(o));
+                            PostPersons taks1 = new PostPersons(postData);
+                            try {
+                                post = taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs").get();
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            try {
+
+                                JSONObject obj1;
+
+                                if (post != null) {
+                                    for (int u = 0; u < post.length(); u++) {
+                                        try {
+                                            obj1 = post.getJSONObject(u);
+                                            idRepair=(obj1.getString("id"));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+
+                                Map<String, String> postData = new HashMap<>();
+                                postData.put("clientPersonId", idRepair);
+                                postData.put("clientNif", nif.getText().toString());
+                                PostPersons taks1 = new PostPersons(postData);
+                                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepair"); try {
+
+                                    JSONObject obj1;
+
+                                    if (post != null) {
+                                        for (int i = 0; i < post.length(); i++) {
+                                            try {
+                                                obj1 = post.getJSONObject(i);
+                                                id=(obj1.getString("id"));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+
+                                    Map<String, String> postData = new HashMap<>();
+                                    postData.put("clientPersonId", id);
+                                    postData.put("clientNif", nif.getText().toString());
+                                    PostPersons taks1 = new PostPersons(postData);
+                                    taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/clients");
+
+
+                        }
+
+                    }
+
 
                 }
 
@@ -277,13 +349,6 @@ public class HomeFragment extends Fragment {
 
 
 
-                Map<String, String> postData = new HashMap<>();
-                postData.put("carLicensePlate", typeRepairId.get(1));
-
-
-
-                PostPersons taks1 = new PostPersons(postData);
-                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/cars");
             }
         });
 
@@ -330,6 +395,7 @@ public class HomeFragment extends Fragment {
                 try {
 
                     clientcar = objCar.getJSONObject(i).getJSONObject("carModel");
+                    carId.add(clientcar.getString("id"));
                     modelsName.add(clientcar.getString("modelName"));
                     brandNames.add(clientcar.getJSONObject("modelBrand").getString("brandName"));
                 } catch (JSONException e) {
