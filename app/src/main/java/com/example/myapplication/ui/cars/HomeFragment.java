@@ -200,6 +200,7 @@ public class HomeFragment extends Fragment {
 
 
 
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
@@ -263,33 +264,31 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 ArrayList<String> idselected;
                 idselected = new ArrayList<>();
+                boolean execption=false;
                 Navigation.findNavController(view)
                         .navigate(R.id.action_navigation_home_to_When);
 
 
-
                 for (int i = 0; i < items.size(); i++) {
-                    if (items.get(i).checked){
+                    if (items.get(i).checked) {
                         idselected.add(typeRepairId.get(i));
+                        execption=true;
                     }
 
                 }
+                if (execption=false){
 
-                for (int i = 0; i <idselected.size() ; i++) {
+                }else {
 
-
-
-
-                    for (int o = 0; o < brandNames.size() ; i++) {
-                        if(car.getSelectedItem().toString().contains(brandNames.get(o))){
+                    for (int o = 0; o < brandNames.size(); o++) {
+                        if (car.getSelectedItem().toString().contains(brandNames.get(o))) {
 
                             Map<String, String> postData = new HashMap<>();
                             postData.put("repairCar", carId.get(o));
                             PostPersons taks1 = new PostPersons(postData);
                             try {
                                 post = taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs").get();
-                            }
-                            catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
@@ -301,51 +300,33 @@ public class HomeFragment extends Fragment {
                                     for (int u = 0; u < post.length(); u++) {
                                         try {
                                             obj1 = post.getJSONObject(u);
-                                            idRepair=(obj1.getString("id"));
+                                            idRepair = (obj1.getString("id"));
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
                                     }
                                 }
 
-                                Map<String, String> postData = new HashMap<>();
-                                postData.put("clientPersonId", idRepair);
-                                postData.put("clientNif", nif.getText().toString());
-                                PostPersons taks1 = new PostPersons(postData);
-                                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepair"); try {
+                                for (int i = 0; i < idselected.size(); i++) {
 
-                                    JSONObject obj1;
+                                    Map<String, String> postData1 = new HashMap<>();
+                                    postData1.put("typeRepairRepairTypeRepair", typeRepairId.get(i));
+                                    postData1.put("typeRepairRepairRepair", idRepair);
+                                    PostPersons taks2 = new PostPersons(postData1);
+                                    taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepairRepair");
 
-                                    if (post != null) {
-                                        for (int i = 0; i < post.length(); i++) {
-                                            try {
-                                                obj1 = post.getJSONObject(i);
-                                                id=(obj1.getString("id"));
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    }
+                                }
 
-                                    Map<String, String> postData = new HashMap<>();
-                                    postData.put("clientPersonId", id);
-                                    postData.put("clientNif", nif.getText().toString());
-                                    PostPersons taks1 = new PostPersons(postData);
-                                    taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/clients");
 
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                            }
 
                         }
 
                     }
 
-
                 }
-
-
-
-
-
-
 
 
 
@@ -384,10 +365,7 @@ public class HomeFragment extends Fragment {
             objCar = null;
         }
 
-
-
-
-
+        carId= new ArrayList<>();
         modelsName = new ArrayList<>();
         brandNames = new ArrayList<>();
         if(objCar != null) {
@@ -395,6 +373,7 @@ public class HomeFragment extends Fragment {
                 try {
 
                     clientcar = objCar.getJSONObject(i).getJSONObject("carModel");
+                    Log.e("carId", ""+clientcar.getString("id"));
                     carId.add(clientcar.getString("id"));
                     modelsName.add(clientcar.getString("modelName"));
                     brandNames.add(clientcar.getJSONObject("modelBrand").getString("brandName"));
@@ -421,7 +400,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        JSONArrayDownloader task1 = new JSONArrayDownloader();
+        JSONArrayDownloader task3 = new JSONArrayDownloader();
         JSONObject obj;
 
         ArrayAdapter<String> clientcaradapter =
@@ -429,7 +408,7 @@ public class HomeFragment extends Fragment {
         clientcaradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         car.setAdapter(clientcaradapter);
         try {
-            objTypeRepair = task1.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepair").get();
+            objTypeRepair = task3.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepair").get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             objTypeRepair = null;

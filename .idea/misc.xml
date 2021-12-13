@@ -6,6 +6,7 @@
         <entry key="..\:/Users/Jonhot/StudioProjects/M-go/app/src/main/res/layout/activity_login2.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Jonhot/StudioProjects/M-go/app/src/main/res/layout/fragment_date_picker.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Jonhot/StudioProjects/M-go/app/src/main/res/layout/fragment_home.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/M-go-try/app/src/main/res/layout/fragment_home.xml" value="0.348731884057971" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/M-go/app/src/main/res/drawable-anydpi/ic_my_profile.xml" value="0.3828125" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/M-go/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.3828125" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/M-go/app/src/main/res/layout/activity_add_car.xml" value="0.35260416666666666" />
@@ -26,7 +27,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
