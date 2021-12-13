@@ -288,6 +288,7 @@ public class HomeFragment extends Fragment {
                             PostPersons taks1 = new PostPersons(postData);
                             try {
                                 post = taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs").get();
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
