@@ -144,6 +144,8 @@ public class MapsFragment extends Fragment {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                         //Add marker on map
                         googleMap.addMarker(markerOptions);
+                        LatLng userLocation = new LatLng(latitude, longitude);
+                        Marker markertwo = googleMap.addMarker(new MarkerOptions().position(userLocation).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
                     }
                 });
