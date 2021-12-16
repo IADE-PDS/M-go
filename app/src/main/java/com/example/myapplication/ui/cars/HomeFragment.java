@@ -334,6 +334,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         btnGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

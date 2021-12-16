@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
@@ -223,6 +224,8 @@ public class addCarActivity extends AppCompatActivity {
 
                     PostPersons taks1 = new PostPersons(postData);
                     taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/cars");
+
+
 
                     Intent intent = new Intent(addCarActivity.this, MainActivity.class);
                     startActivity(intent);

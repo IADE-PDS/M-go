@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import android.util.Log;
+import android.widget.Toast;
 
 
 public class DashboardFragment extends Fragment {
@@ -228,11 +229,14 @@ public class DashboardFragment extends Fragment {
 
                     PostPersons taks1 = new PostPersons(postData);
                     taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/cars");
+                    //verificar se carro já existe
+                    Toast.makeText(getContext(), "car added", Toast.LENGTH_LONG).show();
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     persons = null;
+                    Toast.makeText(getContext(), "license plate already exists", Toast.LENGTH_LONG).show();
                 }
             }
         });
