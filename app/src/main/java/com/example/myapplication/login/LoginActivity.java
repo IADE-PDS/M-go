@@ -26,13 +26,10 @@ import android.widget.Toast;
 
 import com.example.myapplication.CreateAccount;
 import com.example.myapplication.MainActivity;
-import com.example.myapplication.MechanicActivity;
+import com.example.myapplication.MechanicApp.MechanicActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.ActivityLogin2Binding;
-import com.example.myapplication.databinding.ActivityMechanicBinding;
-import com.example.myapplication.login.LoginFormState;
-import com.example.myapplication.login.LoginResult;
 
 public class LoginActivity extends AppCompatActivity {
 
