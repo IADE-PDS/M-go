@@ -72,9 +72,9 @@ public class MapsFragment extends Fragment {
     private GoogleMap mMap;
     LocationManager locationManager;
     public double tvLatitude, tvLongitude;
-    public static double latitude=0, longitude=0;
+    public static double latitude = 0, longitude = 0;
     public LatLng userLocation;
-    boolean a=true;
+    boolean a = true;
 
     FusedLocationProviderClient client;
 
@@ -93,9 +93,6 @@ public class MapsFragment extends Fragment {
                 getChildFragmentManager().findFragmentById(R.id.mapsFragment);
 
 
-
-
-
         // Async map
 
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -103,13 +100,26 @@ public class MapsFragment extends Fragment {
             public void onMapReady(@NonNull GoogleMap googleMap) {
 
 
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                googleMap.setMyLocationEnabled(true);
+
                 LatLng santos = new LatLng(38.70843814152426, -9.15501526730533);
 
                 getCurrentLocation();
 
-                LatLng userLocation = new LatLng(latitude, longitude);
-                Log.e("User locationnnnnnnnn",""+userLocation);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
+                //Log.e("User locationnnnnnnnn",""+googleMap.getMyLocation());
+                LatLng userLocation = new LatLng(latitude,longitude);
+
+                //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
 
                 //When map is loaded
@@ -141,7 +151,7 @@ public class MapsFragment extends Fragment {
                         //Remove all marker
                         googleMap.clear();
                         // Animating to zoom the marker
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                        //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                         //Add marker on map
                         googleMap.addMarker(markerOptions);
                         LatLng userLocation = new LatLng(latitude, longitude);

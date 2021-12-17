@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
 
-        usernameEditText.setText("j@.c");
+        usernameEditText.setText("@.c");
         passwordEditText.setText("1234");
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
