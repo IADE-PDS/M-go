@@ -16,10 +16,23 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_mechanic"
+        android:name="com.example.myapplication.MechanicApp.MechanicFragment"
+        android:label=""
+        tools:layout="@layout/fragment_mechanic" />
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.myapplication.ui.addCars.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_options"
+        android:name="com.example.myapplication.MechanicApp.OptionsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_options" />
+
 
     <fragment
         android:id="@+id/maps_fragment"
@@ -41,6 +54,11 @@
 
     <fragment
         android:id="@+id/navigation_add_car_activity"
+        android:name="com.example.myapplication.addCarActivity"
+        android:label="Pick date"
+        tools:layout="@layout/activity_add_car" />
+    <fragment
+        android:id="@+id/navigation_login"
         android:name="com.example.myapplication.addCarActivity"
         android:label="Pick date"
         tools:layout="@layout/activity_add_car" />
