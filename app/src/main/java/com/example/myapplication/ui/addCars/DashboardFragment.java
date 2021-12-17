@@ -133,19 +133,19 @@ public class DashboardFragment extends Fragment {
                 JSONObject obj;
                 modelsName = new ArrayList<>();
                 modelsId = new ArrayList<>();
-
                 if (spotsArray != null) {
                     for (int i = 0; i < spotsArray.length(); i++) {
                         try {
                             obj = spotsArray.getJSONObject(i);
                             modelsName.add(obj.getString("modelName"));
                             modelsId.add(obj.getString("id"));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-
+                Log.e("Id received from server",""+modelsId.get(0));
                 ArrayAdapter<String> modeladapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, modelsName);
                 modeladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnermodels.setAdapter(modeladapter);
@@ -192,6 +192,7 @@ public class DashboardFragment extends Fragment {
         });
 
 
+
         ArrayAdapter<String> transAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, transmissao);
         transAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnertransmission.setAdapter(transAdapter);
@@ -220,7 +221,7 @@ public class DashboardFragment extends Fragment {
                     postData.put("carLicensePlate", numberplate.getText().toString());
                     postData.put("carYear", spinneryear.getSelectedItem().toString());
                     postData.put("carClientId", ""+DashboardViewModel.getClientId(LoginDataSource.idint));
-                    postData.put("carModelId", iddeveloper(modelsName,modelsId,spinnerBrands));
+                    postData.put("carModelId", ""+2);
                     postData.put("carBrandId", iddeveloper(brandNames,brandsId,spinnerBrands));
                     postData.put("carTransmission", spinnertransmission.getSelectedItem().toString());
                     postData.put("carFuel", spinnerfuel.getSelectedItem().toString());
@@ -228,6 +229,7 @@ public class DashboardFragment extends Fragment {
 
 
                     PostPersons taks1 = new PostPersons(postData);
+                    Log.e("taks1 data", ""+postData.toString());
                     taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/cars");
                     //verificar se carro já existe
                     Toast.makeText(getContext(), "car added", Toast.LENGTH_LONG).show();
