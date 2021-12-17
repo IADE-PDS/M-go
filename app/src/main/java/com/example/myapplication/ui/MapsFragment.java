@@ -119,7 +119,7 @@ public class MapsFragment extends Fragment {
                 //Log.e("User locationnnnnnnnn",""+googleMap.getMyLocation());
                 LatLng userLocation = new LatLng(latitude,longitude);
 
-                //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
 
                 //When map is loaded
