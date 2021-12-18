@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
     ArrayList<String> typeRepairNames;
     ArrayList<String> modelsName;
     ArrayList<String> brandNames;
+    ArrayList<String> brandid;
     ArrayList<String> clientcars;
     ArrayList<String> carId;
 
@@ -221,6 +222,7 @@ public class HomeFragment extends Fragment {
 
 
 
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
@@ -265,8 +267,6 @@ public class HomeFragment extends Fragment {
                 ArrayList<String> idselected;
                 idselected = new ArrayList<>();
                 boolean execption=false;
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_navigation_home_to_When);
 
 
                 for (int i = 0; i < items.size(); i++) {
@@ -283,8 +283,9 @@ public class HomeFragment extends Fragment {
                     for (int o = 0; o < brandNames.size(); o++) {
                         if (car.getSelectedItem().toString().contains(brandNames.get(o))) {
 
+                            Log.e("super importante id do carro a passar no post",""+carId.get(car.getSelectedItemPosition()));
                             Map<String, String> postData = new HashMap<>();
-                            postData.put("repairCar", carId.get(o));
+                            postData.put("repairCar", carId.get(car.getSelectedItemPosition()));
                             PostPersons taks1 = new PostPersons(postData);
                             Log.e("PostData;   ", ""+postData);
                             try {
@@ -330,7 +331,8 @@ public class HomeFragment extends Fragment {
 
                 }
 
-
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_navigation_home_to_When);
 
             }
         });
@@ -371,6 +373,7 @@ public class HomeFragment extends Fragment {
         carId= new ArrayList<>();
         modelsName = new ArrayList<>();
         brandNames = new ArrayList<>();
+        brandid = new ArrayList<>();
         if(objCar != null) {
             for(int i = 0; i < objCar.length(); i++) {
                 try {
