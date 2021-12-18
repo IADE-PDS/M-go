@@ -46,6 +46,10 @@
             android:exported="true"
             android:label="@string/title_activity_login" />
         <activity
+            android:name=".MechanicApp.MechanicActivity"
+            android:exported="true"
+            android:label="" />
+        <activity
             android:name=".MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" />
