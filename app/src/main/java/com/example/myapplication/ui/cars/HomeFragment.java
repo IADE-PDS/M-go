@@ -377,10 +377,9 @@ public class HomeFragment extends Fragment {
         if(objCar != null) {
             for(int i = 0; i < objCar.length(); i++) {
                 try {
-
+                    carId.add(objCar.getJSONObject(i).getString("id"));
                     clientcar = objCar.getJSONObject(i).getJSONObject("carModel");
                     Log.e("carId", ""+clientcar.getString("id"));
-                    carId.add(clientcar.getString("id"));
                     modelsName.add(clientcar.getString("modelName"));
                     brandNames.add(clientcar.getJSONObject("modelBrand").getString("brandName"));
                 } catch (JSONException e) {
