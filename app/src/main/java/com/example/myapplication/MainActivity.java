@@ -102,11 +102,5 @@ public class MainActivity extends AppCompatActivity {
         //        viewModel.addSpinner(spinnermarcas);
 
 
-
-
-
-
-
     }
-
 }

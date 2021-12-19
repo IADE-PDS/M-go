@@ -187,6 +187,8 @@ public class MapsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.e("test",""+markerCoordinates+"");
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_maps_fragment_to_navigation_notifications);
             }
         });
         blue.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +196,8 @@ public class MapsFragment extends Fragment {
             public void onClick(View view) {
                 LatLng myLocation = new LatLng(latitude,longitude);
                 Log.e("test",""+myLocation+"");
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_maps_fragment_to_navigation_notifications);
             }
         });
 
