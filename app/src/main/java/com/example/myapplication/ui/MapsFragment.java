@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.MapsActivity;
+import com.example.myapplication.databinding.FragmentMapsBinding;
+import com.example.myapplication.databinding.FragmentWhenBinding;
 import com.example.myapplication.ui.cars.HomeFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -40,6 +43,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 import android.provider.Settings;
 
@@ -61,6 +65,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
 
@@ -75,17 +80,28 @@ public class MapsFragment extends Fragment {
     public static double latitude = 0, longitude = 0;
     public LatLng userLocation;
     boolean a = true;
-
+    private FloatingActionButton red,blue;
+    private FragmentMapsBinding binding;
     FusedLocationProviderClient client;
-
+    private LatLng markerCoordinates;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+
+
+        binding = FragmentMapsBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        red=binding.floatingActionButton;
+        blue=binding.floatingActionButton2;
+
+
         // Initialize view
-        View view = inflater.inflate(R.layout.fragment_maps, container, false);
+        //View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
 
         // Initialize map fragment
@@ -94,7 +110,6 @@ public class MapsFragment extends Fragment {
 
 
         // Async map
-
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -112,7 +127,7 @@ public class MapsFragment extends Fragment {
                 }
                 googleMap.setMyLocationEnabled(true);
 
-                LatLng santos = new LatLng(38.70843814152426, -9.15501526730533);
+
 
                 getCurrentLocation();
 
@@ -122,9 +137,15 @@ public class MapsFragment extends Fragment {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
 
+
+
+
                 //When map is loaded
 
                 Marker markerOne = googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker()).position(userLocation));
+
+
+
 
                 if(a){
                     LatLng userLocation1 = new LatLng(latitude, longitude);
@@ -156,11 +177,27 @@ public class MapsFragment extends Fragment {
                         googleMap.addMarker(markerOptions);
                         LatLng userLocation = new LatLng(latitude, longitude);
                         Marker markertwo = googleMap.addMarker(new MarkerOptions().position(userLocation).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
+                        markerCoordinates=latLng;
                     }
                 });
             }
         });
+
+        red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("test",""+markerCoordinates+"");
+            }
+        });
+        blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LatLng myLocation = new LatLng(latitude,longitude);
+                Log.e("test",""+myLocation+"");
+            }
+        });
+
+
         //Initialize Location client
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         //Check condition
@@ -179,7 +216,7 @@ public class MapsFragment extends Fragment {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
         }
 
-        return view;
+        return root;
 
 
     }
