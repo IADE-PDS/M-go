@@ -267,71 +267,71 @@ public class HomeFragment extends Fragment {
                 ArrayList<String> idselected;
                 idselected = new ArrayList<>();
                 boolean execption=false;
+                int sum=0;
 
 
                 for (int i = 0; i < items.size(); i++) {
+
                     if (items.get(i).checked) {
                         idselected.add(typeRepairId.get(i));
                         execption=true;
+                        sum++;
                     }
 
                 }
-                if (execption=false){
+                if(sum!=0) {
+                    if (execption = false) {
 
-                }else {
+                    } else {
+                        Log.e("super importante id do carro a passar no post", "" + carId.get(car.getSelectedItemPosition()));
+                        Map<String, String> postData = new HashMap<>();
+                        postData.put("repairCar", carId.get(car.getSelectedItemPosition()));
+                        PostPersons taks1 = new PostPersons(postData);
+                        Log.e("PostData;   ", "" + postData);
+                        try {
+                            post = taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs").get();
 
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
+                        try {
 
-                            Log.e("super importante id do carro a passar no post",""+carId.get(car.getSelectedItemPosition()));
-                            Map<String, String> postData = new HashMap<>();
-                            postData.put("repairCar", carId.get(car.getSelectedItemPosition()));
-                            PostPersons taks1 = new PostPersons(postData);
-                            Log.e("PostData;   ", ""+postData);
-                            try {
-                                post = taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs").get();
+                            JSONObject obj1;
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-
-                                JSONObject obj1;
-
-                                if (post != null) {
-                                    for (int u = 0; u < post.length(); u++) {
-                                        try {
-                                            obj1 = post.getJSONObject(u);
-                                            idRepair = (obj1.getString("id"));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                            if (post != null) {
+                                for (int u = 0; u < post.length(); u++) {
+                                    try {
+                                        obj1 = post.getJSONObject(u);
+                                        idRepair = (obj1.getString("id"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
                                 }
+                            }
 
-                                for (int i = 0; i < idselected.size(); i++) {
-                                    Log.e("post dos Type repairs a funcionar","maybe");
-                                    Map<String, String> postData1 = new HashMap<>();
-                                    postData1.put("typeRepairRepairTypeRepairId", typeRepairId.get(i));
-                                    postData1.put("typeRepairRepairRepairId", idRepair);
-                                    PostPersons taks2 = new PostPersons(postData1);
-                                    taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepairRepair");
+                            for (int i = 0; i < idselected.size(); i++) {
+                                Log.e("post dos Type repairs a funcionar", "maybe");
+                                Map<String, String> postData1 = new HashMap<>();
+                                postData1.put("typeRepairRepairTypeRepairId", typeRepairId.get(i));
+                                postData1.put("typeRepairRepairRepairId", idRepair);
+                                PostPersons taks2 = new PostPersons(postData1);
+                                taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepairRepair");
 
-                                }
-
-
-                            } catch (Exception exception) {
-                                exception.printStackTrace();
                             }
 
 
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                        }
 
-
-
+                    }
+                    Navigation.findNavController(view)
+                            .navigate(R.id.action_navigation_home_to_When);
+                }else{
+                    Toast.makeText(getContext(), "choose repair", Toast.LENGTH_SHORT).show();
                 }
 
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_navigation_home_to_When);
 
             }
         });
