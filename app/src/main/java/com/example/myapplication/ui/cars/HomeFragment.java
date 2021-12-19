@@ -280,8 +280,7 @@ public class HomeFragment extends Fragment {
 
                 }else {
 
-                    for (int o = 0; o < brandNames.size(); o++) {
-                        if (car.getSelectedItem().toString().contains(brandNames.get(o))) {
+
 
                             Log.e("super importante id do carro a passar no post",""+carId.get(car.getSelectedItemPosition()));
                             Map<String, String> postData = new HashMap<>();
@@ -311,10 +310,10 @@ public class HomeFragment extends Fragment {
                                 }
 
                                 for (int i = 0; i < idselected.size(); i++) {
-
+                                    Log.e("post dos Type repairs a funcionar","maybe");
                                     Map<String, String> postData1 = new HashMap<>();
-                                    postData1.put("typeRepairRepairTypeRepair", typeRepairId.get(i));
-                                    postData1.put("typeRepairRepairRepair", idRepair);
+                                    postData1.put("typeRepairRepairTypeRepairId", typeRepairId.get(i));
+                                    postData1.put("typeRepairRepairRepairId", idRepair);
                                     PostPersons taks2 = new PostPersons(postData1);
                                     taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepairRepair");
 
@@ -325,9 +324,9 @@ public class HomeFragment extends Fragment {
                                 exception.printStackTrace();
                             }
 
-                        }
 
-                    }
+
+
 
                 }
 
