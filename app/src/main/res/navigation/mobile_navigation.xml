@@ -19,7 +19,11 @@
         android:id="@+id/navigation_mechanic"
         android:name="com.example.myapplication.MechanicApp.MechanicFragment"
         android:label=""
-        tools:layout="@layout/fragment_mechanic" />
+        tools:layout="@layout/fragment_mechanic" >
+        <action
+            android:id="@+id/action_navigation_mechanic_to_navigation_options"
+            app:destination="@id/navigation_options" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -57,11 +61,7 @@
         android:name="com.example.myapplication.addCarActivity"
         android:label="Pick date"
         tools:layout="@layout/activity_add_car" />
-    <fragment
-        android:id="@+id/navigation_login"
-        android:name="com.example.myapplication.addCarActivity"
-        android:label="Pick date"
-        tools:layout="@layout/activity_add_car" />
+
 
     <fragment
         android:id="@+id/createAcc"
