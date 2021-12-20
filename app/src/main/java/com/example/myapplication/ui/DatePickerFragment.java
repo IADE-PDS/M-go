@@ -13,8 +13,10 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.myapplication.PostPersons;
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentDatePickerBinding;
 import com.example.myapplication.ui.cars.HomeFragment;
 
@@ -76,6 +78,8 @@ public class DatePickerFragment extends Fragment {
 
                 PostPersons taks2 = new PostPersons(postData1);
                 taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs/data/"+ HomeFragment.idRepair);
+
+                Navigation.findNavController(v).navigate(R.id.action_navigation_date_picker_to_maps_fragment);
             }
         });
 

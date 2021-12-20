@@ -218,10 +218,9 @@ public class MapsFragment extends Fragment {
 
                 PostPersons taks1 = new PostPersons(postData);
                 Log.e("taks1 data", ""+postData.toString());
-                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/post/"+ HomeFragment.idRepair);
+                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs/post/"+ HomeFragment.idRepair);
 
-                //verificar se carro já existe
-                Toast.makeText(getContext(), "car added", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Pedido enviado", Toast.LENGTH_LONG).show();
                 Navigation.findNavController(view)
                         .navigate(R.id.action_maps_fragment_to_navigation_notifications);
             }
