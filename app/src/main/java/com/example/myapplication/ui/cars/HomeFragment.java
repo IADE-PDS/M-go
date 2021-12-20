@@ -210,6 +210,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // 1 - Criar o location Manager para ir buscar a localização onde o nosso device está
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -265,7 +266,6 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 
 
 
