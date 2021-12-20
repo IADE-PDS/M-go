@@ -22,4 +22,5 @@
     <string name="lastRepairs">Previus Repairs</string>
     <string name="support">Support</string>
     <string name="removecar">Remove car</string>
+    <string name="OnGoingRepair">On Going Repair</string>
 </resources>

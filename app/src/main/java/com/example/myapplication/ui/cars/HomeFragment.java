@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -61,9 +62,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment {
+
+
+
+
     Button btnGps,btnChoose;
     ListView repairs;
     Spinner car;
@@ -87,6 +93,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     public double latitude,longitude;
+    public static LatLng latLng;
 
     public class Item {
         boolean checked;
@@ -199,6 +206,54 @@ public class HomeFragment extends Fragment {
     ListView listView;
     ItemsListAdapter myItemsListAdapter;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // 1 - Criar o location Manager para ir buscar a localização onde o nosso device está
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        // 2 - Criar um location Listener para detetar mudanças na nossa localização
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+
+                latLng = new LatLng(location.getLatitude(),location.getLongitude());
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+        // 3 - Detectar se o utilizador nos deu permissões para obter a localização
+        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{ Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+        } else {
+            locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    0,
+                    0,
+                    locationListener
+            );
+        }
+    }
 
 
 
@@ -210,6 +265,8 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+
 
 
         repairs= binding.listRepairs;

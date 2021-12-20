@@ -74,6 +74,13 @@
             android:textSize="25dp" />
 
         <TextView
+            android:id="@+id/onGoging"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/OnGoingRepair"
+            android:textSize="25dp" />
+
+        <TextView
             android:id="@+id/lastRepairs"
             android:layout_width="wrap_content"
             android:layout_height="60dp"

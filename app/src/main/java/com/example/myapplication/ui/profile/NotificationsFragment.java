@@ -10,8 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.myapplication.Downloaders.JSONObjDownloader;
+import com.example.myapplication.R;
 import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentNotificationsBinding;
 
@@ -24,7 +26,7 @@ public class NotificationsFragment extends Fragment {
 
     private JSONObject objLogin;
     private String personName;
-    TextView name;
+    TextView name,onGoing;
 
 
     private NotificationsViewModel notificationsViewModel;
@@ -39,6 +41,14 @@ public class NotificationsFragment extends Fragment {
         View root = binding.getRoot();
 
         name= binding.profileName;
+        onGoing= binding.onGoging;
+
+        onGoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_navigation_notifications_to_navigation_on_going);
+            }
+        });
         getJson();
 
         return root;

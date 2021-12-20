@@ -137,6 +137,7 @@ public class MapsFragment extends Fragment {
 
                 //Log.e("User locationnnnnnnnn",""+googleMap.getMyLocation());
                 LatLng userLocation = new LatLng(latitude,longitude);
+                userLocation = HomeFragment.latLng;
 
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
                 LatLng userLive = new LatLng(tvLatitude, tvLongitude);
@@ -200,7 +201,7 @@ public class MapsFragment extends Fragment {
 
                 PostPersons taks1 = new PostPersons(postData);
                 Log.e("taks1 data", ""+postData.toString());
-                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/post/"+ HomeFragment.idRepair);
+                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs/post/"+ HomeFragment.idRepair);
 
                 Navigation.findNavController(view)
                         .navigate(R.id.action_maps_fragment_to_navigation_notifications);

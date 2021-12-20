@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLogin2Binding binding;
+    public static int map=0;
 
 
     TextView signUp;
