@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
     LoginDataSource id = new LoginDataSource();
 
 
-    String idRepair;
+    public static String idRepair;
 
 
     public JSONArray post;

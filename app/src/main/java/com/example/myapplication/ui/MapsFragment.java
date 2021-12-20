@@ -13,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.MapsActivity;
+import com.example.myapplication.PostPersons;
+import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentMapsBinding;
 import com.example.myapplication.databinding.FragmentWhenBinding;
+import com.example.myapplication.ui.addCars.DashboardViewModel;
 import com.example.myapplication.ui.cars.HomeFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -68,6 +71,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class MapsFragment extends Fragment {
@@ -187,6 +191,17 @@ public class MapsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.e("test",""+markerCoordinates+"");
+
+
+
+                Map<String, String> postData = new HashMap<>();
+                postData.put("repairLat", "" + markerCoordinates.latitude );
+                postData.put("repairLong", "" + markerCoordinates.longitude );
+
+                PostPersons taks1 = new PostPersons(postData);
+                Log.e("taks1 data", ""+postData.toString());
+                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/post/"+ HomeFragment.idRepair);
+
                 Navigation.findNavController(view)
                         .navigate(R.id.action_maps_fragment_to_navigation_notifications);
             }
@@ -196,6 +211,17 @@ public class MapsFragment extends Fragment {
             public void onClick(View view) {
                 LatLng myLocation = new LatLng(latitude,longitude);
                 Log.e("test",""+myLocation+"");
+
+                Map<String, String> postData = new HashMap<>();
+                postData.put("repairLat", "" + myLocation.latitude );
+                postData.put("repairLong", "" + myLocation.longitude );
+
+                PostPersons taks1 = new PostPersons(postData);
+                Log.e("taks1 data", ""+postData.toString());
+                taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/post/"+ HomeFragment.idRepair);
+
+                //verificar se carro já existe
+                Toast.makeText(getContext(), "car added", Toast.LENGTH_LONG).show();
                 Navigation.findNavController(view)
                         .navigate(R.id.action_maps_fragment_to_navigation_notifications);
             }

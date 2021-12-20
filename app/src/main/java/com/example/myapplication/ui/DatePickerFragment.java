@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +14,28 @@ import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.PostPersons;
 import com.example.myapplication.databinding.FragmentDatePickerBinding;
+import com.example.myapplication.ui.cars.HomeFragment;
 
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class DatePickerFragment extends Fragment {
 
     private FragmentDatePickerBinding binding;
 
     private DatePickerDialog datePickerDialog;
-    private Button dateButton,timeButton;
+    private Button dateButton,timeButton,done;
     int hour,minute;
 
     public DatePickerFragment() {
@@ -37,14 +49,35 @@ public class DatePickerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDatePickerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         dateButton=binding.datePickerButton;
         timeButton=binding.timeButton;
+        done= binding.done;
         initDatePicker();
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String timeStr = "2016-11-01T09:45:00.000+02:00";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date dateObj= null;
+                try {
+                    dateObj = sdf.parse(timeStr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Log.e("data e horaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",""+timeButton.getText());
+                Map<String, String> postData1 = new HashMap<>();
+                postData1.put("repairDate", ""+datePickerDialog + timeButton.getText());
+
+                PostPersons taks2 = new PostPersons(postData1);
+                taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs/data/"+ HomeFragment.idRepair);
+            }
+        });
 
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +116,10 @@ public class DatePickerFragment extends Fragment {
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
     }
+
     private void initDatePicker()
     {
+        long currentTime = new Date().getTime();
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
         {
             @Override
@@ -96,21 +131,27 @@ public class DatePickerFragment extends Fragment {
             }
         };
 
+
         Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
+
         datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
-        //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.getDatePicker().setMinDate(currentTime);
 
     }
+
+
     private String makeDateString(int day, int month, int year)
     {
         return getMonthFormat(month) + " " + day + " " + year;
     }
+
+
 
     private String getMonthFormat(int month)
     {
