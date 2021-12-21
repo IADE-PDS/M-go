@@ -211,49 +211,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-        // 1 - Criar o location Manager para ir buscar a localização onde o nosso device está
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        // 2 - Criar um location Listener para detetar mudanças na nossa localização
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-
-
-                latLng = new LatLng(location.getLatitude(),location.getLongitude());
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-
-        // 3 - Detectar se o utilizador nos deu permissões para obter a localização
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{ Manifest.permission.ACCESS_FINE_LOCATION},
-                    1);
-        } else {
-            locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    0,
-                    0,
-                    locationListener
-            );
-        }
     }
 
 
@@ -388,7 +346,6 @@ public class HomeFragment extends Fragment {
                 }else{
                     Toast.makeText(getContext(), "choose repair", Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });

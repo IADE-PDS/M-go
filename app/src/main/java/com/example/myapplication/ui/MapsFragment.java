@@ -1,5 +1,6 @@
 package com.example.myapplication.ui;
 
+
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import androidx.annotation.NonNull;
@@ -68,9 +69,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -88,6 +91,37 @@ public class MapsFragment extends Fragment {
     private FragmentMapsBinding binding;
     FusedLocationProviderClient client;
     private LatLng markerCoordinates;
+    boolean e=false;
+    public static LatLng place;
+    GoogleMap mapss;
+
+    // The entry point to the Places API.
+    private PlacesClient placesClient;
+
+    // The entry point to the Fused Location Provider.
+    private FusedLocationProviderClient fusedLocationProviderClient;
+
+    // A default location (Sydney, Australia) and default zoom to use when location permission is
+    // not granted.
+    private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private static final int DEFAULT_ZOOM = 15;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean locationPermissionGranted;
+
+    // The geographical location where the device is currently located. That is, the last-known
+    // location retrieved by the Fused Location Provider.
+    private Location lastKnownLocation;
+
+    // Keys for storing activity state.
+    private static final String KEY_CAMERA_POSITION = "camera_position";
+    private static final String KEY_LOCATION = "location";
+
+    // Used for selecting the current place.
+    private static final int M_MAX_ENTRIES = 5;
+    private String[] likelyPlaceNames;
+    private String[] likelyPlaceAddresses;
+    private List[] likelyPlaceAttributions;
+    private LatLng[] likelyPlaceLatLngs;
 
     @Nullable
     @Override
@@ -117,7 +151,7 @@ public class MapsFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
-
+                mapss=googleMap;
 
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
@@ -131,24 +165,21 @@ public class MapsFragment extends Fragment {
                 }
                 googleMap.setMyLocationEnabled(true);
 
-
-
                 getCurrentLocation();
 
                 //Log.e("User locationnnnnnnnn",""+googleMap.getMyLocation());
                 LatLng userLocation = new LatLng(latitude,longitude);
-                userLocation = HomeFragment.latLng;
                 Log.e("User locationnnnnnnnn",""+userLocation);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16));
-                LatLng userLive = new LatLng(tvLatitude, tvLongitude);
 
+                LatLng userLive = new LatLng(latitude, longitude);
+
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLive, 16));
 
 
 
                 //When map is loaded
 
-                Marker markerOne = googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker()).position(userLocation));
-
+               // Marker markerOne = googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker()).position(userLocation));
 
 
 
@@ -159,7 +190,7 @@ public class MapsFragment extends Fragment {
                     a=false;
                 }
 
-                               String firstid = markerOne.getId();
+                            //   String firstid = markerOne.getId();
 
 
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -172,8 +203,8 @@ public class MapsFragment extends Fragment {
                         markerOptions.position(latLng);
                         // Set title of marker
                         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                        String firstid = markerOne.getId();
-                        markerMap.put(firstid, "action_first");
+                       // String firstid = markerOne.getId();
+                        //markerMap.put(firstid, "action_first");
                         //Remove all marker
                         googleMap.clear();
                         // Animating to zoom the marker
@@ -185,6 +216,8 @@ public class MapsFragment extends Fragment {
                         markerCoordinates=latLng;
                     }
                 });
+
+
             }
         });
 
@@ -297,6 +330,8 @@ public class MapsFragment extends Fragment {
                         longitude = tvLongitude;
                         Log.e("longitude after if",""+longitude);
                         Log.e("Longitude",""+tvLongitude);
+                        e=true;
+
 
                     }else{
                         //When location result is null
@@ -329,6 +364,48 @@ public class MapsFragment extends Fragment {
             //Open location setting
             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
+       // if (e)
+          //  mapss.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,longitude),16));
+        e=true;
+
+
+
+        private void getDeviceLocation() {
+            /*
+             * Get the best and most recent location of the device, which may be null in rare
+             * cases when a location is not available.
+             */
+            try {
+                if (locationPermissionGranted) {
+                    Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                    locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Location> task) {
+                            if (task.isSuccessful()) {
+                                // Set the map's camera position to the current location of the device.
+                                lastKnownLocation = task.getResult();
+                                if (lastKnownLocation != null) {
+                                    mapss.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                            new LatLng(lastKnownLocation.getLatitude(),
+                                                    lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                }
+                            } else {
+                                Log.d("", "Current location is null. Using defaults.");
+                                Log.e(TAG, "Exception: %s", task.getException());
+                                mapss.moveCamera(CameraUpdateFactory
+                                        .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
+                                mapss.getUiSettings().setMyLocationButtonEnabled(false);
+                            }
+                        }
+                    });
+                }
+            } catch (SecurityException e)  {
+                Log.e("Exception: %s", e.getMessage(), e);
+            }
+        }
+
+
+
 
     }
 }
