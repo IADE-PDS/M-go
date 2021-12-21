@@ -175,8 +175,6 @@ public class MapsFragment extends Fragment {
 
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLive, 16));
 
-
-
                 //When map is loaded
 
                // Marker markerOne = googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker()).position(userLocation));
@@ -370,11 +368,11 @@ public class MapsFragment extends Fragment {
 
 
 
-        private void getDeviceLocation() {
-            /*
+        /*private void getDeviceLocation() {
+            *//*
              * Get the best and most recent location of the device, which may be null in rare
              * cases when a location is not available.
-             */
+             *//*
             try {
                 if (locationPermissionGranted) {
                     Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
@@ -402,10 +400,6 @@ public class MapsFragment extends Fragment {
             } catch (SecurityException e)  {
                 Log.e("Exception: %s", e.getMessage(), e);
             }
-        }
-
-
-
-
+        }*/
     }
 }
