@@ -374,7 +374,12 @@ public class HomeFragment extends Fragment {
         //Gets the cars of a client
         JSONObject clientcar;
 
-        Log.e("",""+LoginDataSource.idint);
+
+
+
+        Log.e("","login idddddddddddddddddddddddddddddddddddddddddd"+LoginDataSource.idint);
+
+
 
         try {
             objCar = task.execute("https://mechanic-on-the-go.herokuapp.com/api/cars/client/"+ DashboardViewModel.getClientId(LoginDataSource.idint)).get();

@@ -1,9 +1,14 @@
 package com.example.myapplication.data;
 
 import android.util.Log;
+
+import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.data.model.LoggedInUser;
 
 import com.example.myapplication.Downloaders.JSONObjDownloader;
+import com.example.myapplication.ui.addCars.DashboardViewModel;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -27,6 +32,30 @@ public class LoginDataSource {
 
 
     public void setIdint(int idint) {
+        JSONArrayDownloader task = new JSONArrayDownloader();
+        JSONArray objTypeRepair;
+        JSONArray obclient = null;
+
+        try {
+            obclient = task.execute("https://mechanic-on-the-go.herokuapp.com/api/api/clients/person/"+ DashboardViewModel.getClientId(LoginDataSource.idint)).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            obclient = null;
+        }
+        if(obclient != null) {
+            for(int i = 0; i < obclient.length(); i++) {
+                try {
+                    idint=Integer.parseInt(obclient.getJSONObject(i).getString("id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+        }
+
+
+
         this.idint = idint;
     }
 

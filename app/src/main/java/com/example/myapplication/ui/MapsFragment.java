@@ -122,6 +122,7 @@ public class MapsFragment extends Fragment {
     private String[] likelyPlaceAddresses;
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
+    public View myView;
 
     @Nullable
     @Override
@@ -145,7 +146,7 @@ public class MapsFragment extends Fragment {
         // Initialize map fragment
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.mapsFragment);
-
+        myView = binding.getRoot();
 
         // Async map
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -168,12 +169,12 @@ public class MapsFragment extends Fragment {
                 getCurrentLocation();
 
                 //Log.e("User locationnnnnnnnn",""+googleMap.getMyLocation());
-                LatLng userLocation = new LatLng(latitude,longitude);
-                Log.e("User locationnnnnnnnn",""+userLocation);
-
-                LatLng userLive = new LatLng(latitude, longitude);
-
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLive, 16));
+               // LatLng userLocation = new LatLng(latitude,longitude);
+                //                Log.e("User locationnnnnnnnn",""+userLocation);
+                //
+                //                LatLng userLive = new LatLng(latitude, longitude);
+                //
+                //                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLive, 16));
 
 
 
@@ -331,6 +332,16 @@ public class MapsFragment extends Fragment {
                         Log.e("longitude after if",""+longitude);
                         Log.e("Longitude",""+tvLongitude);
                         e=true;
+                        //Log.e("User locationnnnnnnnn",""+googleMap.getMyLocation());
+                        LatLng userLocation = new LatLng(latitude,longitude);
+                        Log.e("User locationnnnnnnnn",""+userLocation);
+
+                        LatLng userLive = new LatLng(latitude, longitude);
+
+                        mapss.moveCamera(CameraUpdateFactory.newLatLngZoom(userLive, 16));
+
+                        myView.performClick();
+
 
 
                     }else{
@@ -370,39 +381,7 @@ public class MapsFragment extends Fragment {
 
 
 
-        private void getDeviceLocation() {
-            /*
-             * Get the best and most recent location of the device, which may be null in rare
-             * cases when a location is not available.
-             */
-            try {
-                if (locationPermissionGranted) {
-                    Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
-                    locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            if (task.isSuccessful()) {
-                                // Set the map's camera position to the current location of the device.
-                                lastKnownLocation = task.getResult();
-                                if (lastKnownLocation != null) {
-                                    mapss.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                            new LatLng(lastKnownLocation.getLatitude(),
-                                                    lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                                }
-                            } else {
-                                Log.d("", "Current location is null. Using defaults.");
-                                Log.e(TAG, "Exception: %s", task.getException());
-                                mapss.moveCamera(CameraUpdateFactory
-                                        .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
-                                mapss.getUiSettings().setMyLocationButtonEnabled(false);
-                            }
-                        }
-                    });
-                }
-            } catch (SecurityException e)  {
-                Log.e("Exception: %s", e.getMessage(), e);
-            }
-        }
+
 
 
 
