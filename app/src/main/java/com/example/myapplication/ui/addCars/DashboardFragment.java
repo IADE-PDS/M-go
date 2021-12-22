@@ -221,7 +221,7 @@ public class DashboardFragment extends Fragment {
                     postData.put("carLicensePlate", numberplate.getText().toString());
                     postData.put("carYear", spinneryear.getSelectedItem().toString());
                     postData.put("carClientId", ""+DashboardViewModel.getClientId(LoginDataSource.idint));
-                    postData.put("carModelId", ""+2);
+                    postData.put("carModelId", iddeveloper(modelsName,modelsId,spinnermodels));
                     postData.put("carBrandId", iddeveloper(brandNames,brandsId,spinnerBrands));
                     postData.put("carTransmission", spinnertransmission.getSelectedItem().toString());
                     postData.put("carFuel", spinnerfuel.getSelectedItem().toString());

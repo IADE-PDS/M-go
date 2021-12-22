@@ -30,8 +30,9 @@ import java.util.concurrent.ExecutionException;
 public class CreateAccount extends AppCompatActivity {
    public Button add;
    public EditText name,email,number,password1,password2,nif;
-   public JSONArray NewAcc;
+   public JSONArray NewAcc,client;
    public String id;
+   String idClient;
     JSONArray person = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,46 +81,86 @@ public class CreateAccount extends AppCompatActivity {
                         person = null;
                     }
 
+                    try {
+
+                        JSONObject obj1;
+
+                        if (NewAcc != null) {
+                            for (int i = 0; i < NewAcc.length(); i++) {
+                                try {
+                                    obj1 = NewAcc.getJSONObject(i);
+                                    id=(obj1.getString("id"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        Map<String, String> postData = new HashMap<>();
+                        postData.put("clientPerson", id);
+                        Log.e("Client id on post",""+id);
+                        postData.put("clientNif", nif.getText().toString());
+                        PostPersons taks2 = new PostPersons(postData);
+
+                        try{
+                            client = taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/clients").get();
+                            Log.e("Clientttttttttttttttttttttttttttttttttttttttttttttt",""+client.toString());
+                        } catch (Exception e){
+                            e.printStackTrace();
+                            person = null;
+                        }
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        person = null;
+                    }
+
+                    try {
+
+                        JSONObject obj11;
+
+                        if (client != null) {
+                            for (int i = 0; i < client.length(); i++) {
+                                try {
+                                    obj11 = client.getJSONObject(i);
+                                    Log.e("objetotototototoototot", ""+obj11);
+                                    idClient = (obj11.getString("id"));
+                                    Log.e("iddddddddddddclienttttttttttttttttttttt",""+idClient);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+
+
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        person = null;
+                    }
+
+
+                    Intent intent = new Intent(CreateAccount.this, addCarActivity.class);
+                    intent.putExtra("Idcliente", idClient );
+
+                    startActivity(intent);
+
 
                 }
                 else{
                     Toast.makeText(CreateAccount.this, "The passwords don't coincide", Toast.LENGTH_SHORT).show();
+
+
                 }
 
 
-
-                try {
-
-                    JSONObject obj1;
-
-                    if (NewAcc != null) {
-                        for (int i = 0; i < NewAcc.length(); i++) {
-                            try {
-                                obj1 = NewAcc.getJSONObject(i);
-                                id=(obj1.getString("id"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    Map<String, String> postData = new HashMap<>();
-                    postData.put("clientPersonId", id);
-                    postData.put("clientNif", nif.getText().toString());
-                    PostPersons taks1 = new PostPersons(postData);
-                    taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/clients");
-
-                    LoginDataSource loginDataSource = new LoginDataSource();
-                    loginDataSource.login(name.getText().toString(), password1.getText().toString());
-
-                    startActivity(new Intent(CreateAccount.this, addCarActivity.class));
-
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    person = null;
-                }
+                LoginDataSource loginDataSource = new LoginDataSource();
+                loginDataSource.login(email.getText().toString(), password1.getText().toString());
             }
         });
 

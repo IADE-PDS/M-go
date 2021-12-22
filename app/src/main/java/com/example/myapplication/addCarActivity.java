@@ -14,9 +14,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.example.myapplication.Downloaders.IntegerDownloader;
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.data.LoginDataSource;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
+import com.example.myapplication.login.LoginActivity;
 import com.example.myapplication.ui.addCars.DashboardViewModel;
 
 import org.json.JSONArray;
@@ -45,6 +47,7 @@ public class addCarActivity extends AppCompatActivity {
     ArrayList<String> modelsName;
     ArrayList<String> engineId;
     ArrayList<String> engineName;
+    private Intent intent,intent1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,29 +214,41 @@ public class addCarActivity extends AppCompatActivity {
                 try {
 
 
+
+
+                    intent = getIntent();
+
+                    String a=(intent.getExtras().getString("Idcliente"));
+
+                    Log.e("iddd post car",""+a);
+
+                    Log.e("Iddd do client depois da conversao",""+a);
+
                     Map<String, String> postData = new HashMap<>();
                     postData.put("carLicensePlate", numberplate.getText().toString());
                     postData.put("carYear", spinneryear.getSelectedItem().toString());
-                    postData.put("carClientId", ""+DashboardViewModel.getClientId(LoginDataSource.idint));
-                    postData.put("carModelId", iddeveloper(modelsName,modelsId,spinnerBrands));
+                    postData.put("carClientId", a);
+                    postData.put("carModelId", iddeveloper(modelsName,modelsId,spinnermodels));
                     postData.put("carBrandId", iddeveloper(brandNames,brandsId,spinnerBrands));
                     postData.put("carTransmission", spinnertransmission.getSelectedItem().toString());
                     postData.put("carFuel", spinnerfuel.getSelectedItem().toString());
                     postData.put("carEngineId", iddeveloper(engineName,engineId,spinnerengine));
 
-
+                    Log.e("post data dsasddsaadsadsd",""+postData);
                     PostPersons taks1 = new PostPersons(postData);
                     taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/cars");
 
 
 
-                    Intent intent = new Intent(addCarActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    intent1 = new Intent(addCarActivity.this, LoginActivity.class);
+
+                    Toast.makeText(getApplicationContext(), "car added", Toast.LENGTH_LONG).show();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     persons = null;
                 }
+                startActivity(intent1);
             }
         });
 

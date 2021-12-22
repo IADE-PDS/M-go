@@ -2,6 +2,7 @@ package com.example.myapplication.data;
 
 import android.util.Log;
 
+import com.example.myapplication.Downloaders.IntegerDownloader;
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.data.model.LoggedInUser;
 
@@ -31,32 +32,11 @@ public class LoginDataSource {
     }
 
 
-    public void setIdint(int idint) {
-        JSONArrayDownloader task = new JSONArrayDownloader();
-        JSONArray objTypeRepair;
-        JSONArray obclient = null;
-
-        try {
-            obclient = task.execute("https://mechanic-on-the-go.herokuapp.com/api/api/clients/person/"+ DashboardViewModel.getClientId(LoginDataSource.idint)).get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            obclient = null;
-        }
-        if(obclient != null) {
-            for(int i = 0; i < obclient.length(); i++) {
-                try {
-                    idint=Integer.parseInt(obclient.getJSONObject(i).getString("id"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-
-                }
-
-            }
-        }
+    public void setIdint(int idint1) {
 
 
 
-        this.idint = idint;
+        this.idint = idint1;
     }
 
     public Result<LoggedInUser> login(String username, String password) {
@@ -103,6 +83,8 @@ public class LoginDataSource {
             e.printStackTrace();
         }
     }
+
+
 
     public void logout() {
         // TODO: revoke authentication
