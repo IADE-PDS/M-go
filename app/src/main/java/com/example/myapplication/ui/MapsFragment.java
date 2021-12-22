@@ -168,12 +168,7 @@ public class MapsFragment extends Fragment {
                 getCurrentLocation();
 
                 //Log.e("User locationnnnnnnnn",""+googleMap.getMyLocation());
-                LatLng userLocation = new LatLng(latitude,longitude);
-                Log.e("User locationnnnnnnnn",""+userLocation);
 
-                LatLng userLive = new LatLng(latitude, longitude);
-
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLive, 16));
 
 
 
@@ -331,6 +326,13 @@ public class MapsFragment extends Fragment {
                         Log.e("longitude after if",""+longitude);
                         Log.e("Longitude",""+tvLongitude);
                         e=true;
+
+                        LatLng userLocation = new LatLng(latitude,longitude);
+                        Log.e("User locationnnnnnnnn",""+userLocation);
+
+                        LatLng userLive = new LatLng(latitude, longitude);
+
+                        mapss.moveCamera(CameraUpdateFactory.newLatLngZoom(userLive, 16));
 
 
                     }else{
