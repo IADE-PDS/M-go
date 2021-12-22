@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Mobile Mechanics</string>
     <string name="title_dashboard">Add cars</string>
     <string name="title_notifications">Profile</string>
     <string name="title_home">My cars</string>
