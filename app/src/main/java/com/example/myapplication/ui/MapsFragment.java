@@ -369,13 +369,5 @@ public class MapsFragment extends Fragment {
        // if (e)
           //  mapss.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,longitude),16));
         e=true;
-
-
-
-        //
-
-
-
-
     }
 }

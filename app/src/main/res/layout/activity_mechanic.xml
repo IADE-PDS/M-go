@@ -84,10 +84,10 @@
 
     <Switch
         android:id="@+id/switch2"
-        android:layout_width="145dp"
-        android:layout_height="79dp"
+        android:layout_width="188dp"
+        android:layout_height="80dp"
         android:minHeight="48dp"
-        android:text="Switch"
+        android:text="Availability"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,5 +95,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.861" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Repairs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
