@@ -14,6 +14,8 @@ import com.example.myapplication.PostPersons;
 import com.example.myapplication.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ public class RepairsActivity extends AppCompatActivity {
     {
         JSONArrayDownloader task = new JSONArrayDownloader();
         JSONArray objRepairs;
+        JSONObject repair;
         try {
 
             objRepairs=task.execute("http://mechanic-on-the-go.herokuapp.com/api/repairs/repairTaken").get();
@@ -41,6 +44,17 @@ public class RepairsActivity extends AppCompatActivity {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             objRepairs = null;
+        }
+        if(objRepairs != null) {
+            for (int i = 0; i < objRepairs.length(); i++) {
+                try {
+                    repair = objRepairs.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
         }
         // 1 - Referenciar o componente do Design no Código
         ListView myList = (ListView) findViewById(R.id.myListView);
