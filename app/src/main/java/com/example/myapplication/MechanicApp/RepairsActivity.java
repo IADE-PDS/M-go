@@ -56,7 +56,8 @@ public class RepairsActivity extends AppCompatActivity {
             for (int i = 0; i < objRepairs.length(); i++) {
                 try {
                     repair = objRepairs.getJSONObject(i);
-                    myItems.add(""+repair);
+                    //myItems.add(""+repair);
+                    myItems.add(repair.getString("repairCar")+repair.getString("repairLat")+repair.getString("repairLong"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
