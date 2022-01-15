@@ -2,6 +2,7 @@ package com.example.myapplication.MechanicApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.example.myapplication.Downloaders.JSONArrayDownloader;
 import com.example.myapplication.PostPersons;
 import com.example.myapplication.R;
+import com.google.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,13 +25,19 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class RepairsActivity extends AppCompatActivity {
-
-
+    ArrayList<LatLng> location;
+    ArrayList<String> lat;
+    ArrayList<String> lon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repairs);
+        lat=new ArrayList<>();
+        location=new ArrayList<>();
+        lon=new ArrayList<>();
         initializeMyListView();
+
+
     }
 
     private void initializeMyListView()
@@ -53,11 +61,14 @@ public class RepairsActivity extends AppCompatActivity {
             objRepairs = null;
         }
         if(objRepairs != null) {
+
             for (int i = 0; i < objRepairs.length(); i++) {
                 try {
                     repair = objRepairs.getJSONObject(i);
                     //myItems.add(""+repair);
                     myItems.add(repair.getString("repairCar")+repair.getString("repairLat")+repair.getString("repairLong"));
+                    lat.add(repair.getString("repairLat"));
+                    lon.add(repair.getString("repairLong"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -73,7 +84,6 @@ public class RepairsActivity extends AppCompatActivity {
         // 6 - Chamamos a função que nos implementa o listener
         createListViewClickItemEvent(myList, myItems);
 
-
     }
 
     private void createListViewClickItemEvent(ListView list, final ArrayList<String> items)
@@ -82,7 +92,12 @@ public class RepairsActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("INFO", "O nome da disciplina é: " + items.get(position));
+                Log.i("INFO", ": " + items.get(position));
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("Latitude", Double.parseDouble(lat.get(position)));
+                intent.putExtra("Longitude", Double.parseDouble(lon.get(position)));
+
+                startActivity(intent);
             }
         });
     }
