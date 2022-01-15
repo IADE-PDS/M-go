@@ -66,7 +66,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }).execute();
 
-        LatLng zaragoza = new LatLng(latitude,longitude);
 
         calculatedPath = GetDirections(IADE, repair);
         if(calculatedPath!=null)
@@ -79,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(IADE, 15));
     }
 
     private List<LatLng> GetDirections(LatLng a, LatLng b) {
