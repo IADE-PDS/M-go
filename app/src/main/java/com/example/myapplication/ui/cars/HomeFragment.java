@@ -350,7 +350,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
+        btnGps.setVisibility(View.INVISIBLE);
         btnGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
