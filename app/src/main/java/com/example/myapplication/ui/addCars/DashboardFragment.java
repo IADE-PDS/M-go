@@ -57,6 +57,7 @@ public class DashboardFragment extends Fragment {
 
 
 
+        // Para usar no spinner para obter o ano do carro
         ArrayList<String> yearList = new ArrayList<>();
 
         for (int i=Calendar.getInstance().get(Calendar.YEAR) ;i >=1920 ;i--){
@@ -83,6 +84,8 @@ public class DashboardFragment extends Fragment {
 
         System.out.println("Spinner id " + spinnerBrands);
 
+
+        // Buscas as brands todas que estao nha bd
         JSONArrayDownloader task = new JSONArrayDownloader();
         JSONArray objBrands;
         try {
@@ -108,10 +111,15 @@ public class DashboardFragment extends Fragment {
         }
 
 
+        // Iniciar o spinner das brands
         ArrayAdapter<String> brandadapter =
                 new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, brandNames);
         brandadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBrands.setAdapter(brandadapter);
+
+        /**
+         * Quando escolher mostrar o modelos da brand selecionada
+         * **/
 
         spinnerBrands.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -122,7 +130,7 @@ public class DashboardFragment extends Fragment {
                 JSONArray spotsArray = null;
                 Log.e("thisissss",""+ brandsId.get(0));
                 JSONArrayDownloader task = new JSONArrayDownloader();
-                String url = "https://mechanic-on-the-go.herokuapp.com/api/models/brand/" + iddeveloper(brandNames, brandsId,spinnerBrands);
+                String url = "https://mechanic-on-the-go.herokuapp.com/api/models/brand/" + iddeveloper(brandNames, brandsId, spinnerBrands);
                 try {
                     spotsArray = task.execute(url).get();
                 } catch (ExecutionException | InterruptedException e) {
@@ -146,10 +154,19 @@ public class DashboardFragment extends Fragment {
                     }
                 }
                 Log.e("Id received from server",""+modelsId.get(0));
+
+                // Iniciar o Spinner
+
                 ArrayAdapter<String> modeladapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, modelsName);
                 modeladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnermodels.setAdapter(modeladapter);
 
+
+                /**
+                 *
+                 *
+                 * Mostrar engines de um detreminado modelo
+                 * **/
                 JSONArray engineArray = null;
                 JSONArrayDownloader task1 = new JSONArrayDownloader();
                 Log.e("", "");
@@ -177,6 +194,7 @@ public class DashboardFragment extends Fragment {
                     }
                 }
 
+                //Inicializar spinner
                 ArrayAdapter<String> engineAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, engineName);
                 engineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerengine.setAdapter(engineAdapter);
@@ -192,6 +210,11 @@ public class DashboardFragment extends Fragment {
         });
 
 
+        /**
+         * Inicializar todos os spinner que nao dependem de ids
+         *
+         *
+         * */
 
         ArrayAdapter<String> transAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, transmissao);
         transAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -265,6 +288,8 @@ public class DashboardFragment extends Fragment {
 
         }
 
+
+        // Dando o arraylist com nomes e com ids devolve o id a ser usado
         public String iddeveloper(ArrayList names, ArrayList ids,Spinner c){
             for (int temp = 0; temp < names.size(); temp++){
                 if (c.getSelectedItem().equals(names.get(temp))){

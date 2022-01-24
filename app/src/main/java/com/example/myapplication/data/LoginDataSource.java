@@ -23,22 +23,8 @@ public class LoginDataSource {
     private JSONObject objLogin;
     public static int idint=1;
 
-    public LoginDataSource() {
 
-    }
-
-    public int getId() {
-        return idint;
-    }
-
-
-    public void setIdint(int idint1) {
-
-
-
-        this.idint = idint1;
-    }
-
+    //Esta funçao esta a ser usada na MainActivity
     public Result<LoggedInUser> login(String username, String password) {
 
         try {
@@ -61,8 +47,10 @@ public class LoginDataSource {
 
     public void getJson(String username, String password){
         JSONObjDownloader task = new JSONObjDownloader();
+        // Este lin vai ser se existe um username com a pass indicada
         String url = "https://mechanic-on-the-go.herokuapp.com/api/persons/log/"+username+"/"+password;
         try {
+            //Vais executar o url para ir buscar o json e armazenar no objLogin
             objLogin = task.execute(url).get();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
@@ -72,12 +60,18 @@ public class LoginDataSource {
         Log.e("Login", ""+objLogin);
 
         try {
+            // Esta a ir a chave numa ao json -> true ou false
             isMechanic = objLogin.getString("personIsMechanic");
+            // Estamos na ir buscar o id da pessoa
             id = objLogin.getString("id");
             Log.e("id", id);
+
+
+            //Guardar num public static void para poder aceder todo o lado
+            // Nao saber como fazer o intente para fragmentos foi a unica forma
             idint=Integer.parseInt(id);
             Log.e("id", ""+idint);
-            setIdint(Integer.parseInt(id));
+            //
 
         } catch (JSONException e) {
             e.printStackTrace();

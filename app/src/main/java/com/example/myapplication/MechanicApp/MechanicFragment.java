@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentMechanicBinding;
 import com.example.myapplication.databinding.FragmentNotificationsBinding;
-import com.example.myapplication.ui.profile.NotificationsViewModel;
+
 
 
 public class MechanicFragment extends Fragment {

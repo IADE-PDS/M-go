@@ -89,6 +89,15 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
+                    /*
+                    *
+                    *
+                    * Se nao houve nenhum erro no LoginDataSource
+                    *
+                    *
+                    * */
+
+                    //Esta funçao vai gazer um intente para a MainActivity ou MechanicActivity
                     updateUiWithUser(loginResult.getSuccess());
                 }
                 setResult(Activity.RESULT_OK);
