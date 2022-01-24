@@ -270,6 +270,7 @@ public class HomeFragment extends Fragment {
 
                 if (items.get(i).checked) {
                     idselected.add(typeRepairId.get(i));
+                    Log.e("tag",""+typeRepairId.get(i));
                     execption=true;
                     sum++;
                 }
@@ -313,12 +314,10 @@ public class HomeFragment extends Fragment {
                             Log.e("post dos Type repairs a funcionar", "maybe");
 
 
-                            /**
-                             * Vai sempre a primeria
-                             * */
-
                             Map<String, String> postData1 = new HashMap<>();
-                            postData1.put("typeRepairRepairTypeRepairId", typeRepairId.get(i));
+                            Log.e("tag",""+idselected.get(i));
+                            postData1.put("typeRepairRepairTypeRepairId", idselected.get(i));
+
                             postData1.put("typeRepairRepairRepairId", idRepair);
 
 
