@@ -28,6 +28,7 @@ public class DashboardViewModel extends ViewModel {
         return mText;
     }
 
+    // Com o o id da pessoa que foi reteriado do LoginResult, da o id do cliente
     public static Integer getClientId(int id) {
         IntegerDownloader task = new IntegerDownloader();
         Integer IntegerClientId;

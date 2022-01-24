@@ -90,10 +90,11 @@ public class HomeFragment extends Fragment {
     ArrayList<String> clientcars;
     ArrayList<String> carId;
 
-    private HomeViewModel homeViewModel;
+
     private FragmentHomeBinding binding;
     public double latitude,longitude;
     public static LatLng latLng;
+
 
     public class Item {
         boolean checked;
@@ -148,7 +149,7 @@ public class HomeFragment extends Fragment {
         public View getView(final int position, View convertView, ViewGroup parent) {
             View rowView = convertView;
 
-            // reuse views
+            // LAyout da tua checkbocks
             ViewHolder viewHolder = new ViewHolder();
             if (rowView == null) {
                 LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -162,6 +163,10 @@ public class HomeFragment extends Fragment {
                 viewHolder = (ViewHolder) rowView.getTag();
             }
 
+            /*
+            * Quando esta selecionado ou nao
+            * */
+
             viewHolder.icon.setImageDrawable(list.get(position).ItemDrawable);
             viewHolder.checkBox.setChecked(list.get(position).checked);
 
@@ -170,20 +175,12 @@ public class HomeFragment extends Fragment {
 
             viewHolder.checkBox.setTag(position);
 
-            /*
-            viewHolder.checkBox.setOnCheckedChangeListener(
-                    new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    list.get(position).checked = b;
 
-                    Toast.makeText(getApplicationContext(),
-                            itemStr + "onCheckedChanged\nchecked: " + b,
-                            Toast.LENGTH_LONG).show();
-                }
-            });
-            */
-
+            /**
+             *
+             * Mete cruz ou trira cruz
+             *
+             * */
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -219,8 +216,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -238,116 +233,112 @@ public class HomeFragment extends Fragment {
 
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener((parent, view, position, id) -> Toast.makeText(getContext(),
+                ((Item)(parent.getItemAtPosition(position))).ItemString,
+                Toast.LENGTH_LONG).show());
+        
+        /**
+         * 
+         * Ve quais estao selecionados
+         * */
+        
+        btnLookup.setOnClickListener(view -> {
+            String str = "Check items:\n";
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getContext(),
-                        ((Item)(parent.getItemAtPosition(position))).ItemString,
-                        Toast.LENGTH_LONG).show();
-            }});
-
-        btnLookup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str = "Check items:\n";
-
-                for (int i=0; i<items.size(); i++){
-                    if (items.get(i).isChecked()){
-                        str += i + "\n";
-                    }
+            for (int i=0; i<items.size(); i++){
+                if (items.get(i).isChecked()){
+                    str += i + "\n";
                 }
-
-                /*
-                int cnt = myItemsListAdapter.getCount();
-                for (int i=0; i<cnt; i++){
-                    if(myItemsListAdapter.isChecked(i)){
-                        str += i + "\n";
-                    }
-                }
-                */
-
-                Toast.makeText(getContext(),
-                        str,
-                        Toast.LENGTH_LONG).show();
-
             }
+
+
+            Toast.makeText(getContext(),
+                    str,
+                    Toast.LENGTH_LONG).show();
+
         });
 
 
-        btnChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<String> idselected;
-                idselected = new ArrayList<>();
-                boolean execption=false;
-                int sum=0;
+        btnChoose.setOnClickListener(view -> {
+            ArrayList<String> idselected;
+            idselected = new ArrayList<>();
+            boolean execption=false;
+            int sum=0;
 
 
-                for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < items.size(); i++) {
 
-                    if (items.get(i).checked) {
-                        idselected.add(typeRepairId.get(i));
-                        execption=true;
-                        sum++;
-                    }
-
-                }
-                if(sum!=0) {
-                    if (execption = false) {
-
-                    } else {
-                        Log.e("super importante id do carro a passar no post", "" + carId.get(car.getSelectedItemPosition()));
-                        Map<String, String> postData = new HashMap<>();
-                        postData.put("repairCar", carId.get(car.getSelectedItemPosition()));
-                        PostPersons taks1 = new PostPersons(postData);
-                        Log.e("PostData;   ", "" + postData);
-                        try {
-                            post = taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs").get();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        try {
-
-                            JSONObject obj1;
-
-                            if (post != null) {
-                                for (int u = 0; u < post.length(); u++) {
-                                    try {
-                                        obj1 = post.getJSONObject(u);
-                                        idRepair = (obj1.getString("id"));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-
-                            for (int i = 0; i < idselected.size(); i++) {
-                                Log.e("post dos Type repairs a funcionar", "maybe");
-                                Map<String, String> postData1 = new HashMap<>();
-                                postData1.put("typeRepairRepairTypeRepairId", typeRepairId.get(i));
-                                postData1.put("typeRepairRepairRepairId", idRepair);
-                                PostPersons taks2 = new PostPersons(postData1);
-                                taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepairRepair");
-
-                            }
-
-
-                        } catch (Exception exception) {
-                            exception.printStackTrace();
-                        }
-
-                    }
-                    Navigation.findNavController(view)
-                            .navigate(R.id.action_navigation_home_to_When);
-                }else{
-                    Toast.makeText(getContext(), "choose repair", Toast.LENGTH_SHORT).show();
+                if (items.get(i).checked) {
+                    idselected.add(typeRepairId.get(i));
+                    execption=true;
+                    sum++;
                 }
 
             }
+            if(sum!=0) {
+                if (execption = false) {
+
+                } else {
+                    Log.e("super importante id do carro a passar no post", "" + carId.get(car.getSelectedItemPosition()));
+
+                    Map<String, String> postData = new HashMap<>();
+                    postData.put("repairCar", carId.get(car.getSelectedItemPosition()));
+
+
+                    PostPersons taks1 = new PostPersons(postData);
+                    Log.e("PostData;   ", "" + postData);
+                    try {
+                        post = taks1.execute("https://mechanic-on-the-go.herokuapp.com/api/repairs").get();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+
+                        JSONObject obj1;
+
+                        if (post != null) {
+                            for (int u = 0; u < post.length(); u++) {
+                                try {
+                                    obj1 = post.getJSONObject(u);
+                                    idRepair = (obj1.getString("id"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < idselected.size(); i++) {
+                            Log.e("post dos Type repairs a funcionar", "maybe");
+
+
+                            /**
+                             * Vai sempre a primeria
+                             * */
+
+                            Map<String, String> postData1 = new HashMap<>();
+                            postData1.put("typeRepairRepairTypeRepairId", typeRepairId.get(i));
+                            postData1.put("typeRepairRepairRepairId", idRepair);
+
+
+                            PostPersons taks2 = new PostPersons(postData1);
+                            taks2.execute("https://mechanic-on-the-go.herokuapp.com/api/typeRepairRepair");
+
+                        }
+
+
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+
+                }
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_navigation_home_to_When);
+            }else{
+                Toast.makeText(getContext(), "choose repair", Toast.LENGTH_SHORT).show();
+            }
+
         });
 
         btnGps.setVisibility(View.INVISIBLE);
@@ -395,7 +386,9 @@ public class HomeFragment extends Fragment {
         if(objCar != null) {
             for(int i = 0; i < objCar.length(); i++) {
                 try {
+                    // Arzaenar id de todos os carros do cliente
                     carId.add(objCar.getJSONObject(i).getString("id"));
+
                     clientcar = objCar.getJSONObject(i).getJSONObject("carModel");
                     Log.e("carId", ""+clientcar.getString("id"));
                     modelsName.add(clientcar.getString("modelName"));
@@ -577,6 +570,12 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
+    /*
+    *Explica este o zee
+    *
+    * */
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

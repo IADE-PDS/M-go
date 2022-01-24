@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
    // public Spinner spinnermarcas,spinnermodels,spinnerengine,spinnertransmission;
 
     private ActivityMainBinding binding;
-    private ItemViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
-        viewModel.getSelectedItem().observe(this, item -> {
-            // Perform an action with the latest item data
-        });
+
 
 
 
