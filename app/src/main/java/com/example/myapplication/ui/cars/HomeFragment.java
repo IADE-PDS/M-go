@@ -394,9 +394,7 @@ public class HomeFragment extends Fragment {
                     brandNames.add(clientcar.getJSONObject("modelBrand").getString("brandName"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-
                 }
-
             }
         }
 
